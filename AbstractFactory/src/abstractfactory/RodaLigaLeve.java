@@ -9,13 +9,6 @@ package abstractfactory;
  *
  * @author Emanuel
  */
-public class AbstractFactory {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class RodaLigaLeve extends Roda{
     
 }
