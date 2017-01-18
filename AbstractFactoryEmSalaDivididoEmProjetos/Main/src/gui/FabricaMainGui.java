@@ -20,8 +20,9 @@ public class FabricaMainGui extends javax.swing.JFrame {
         TextArea.setText("");
         int op;
         String text = "";
-        File currentDir = new File("/home/aluno/INF011 Emanuel/Paterns/AbstractFactoryEmSalaDivididoEmProjetos/plugins/");
-        System.out.println(currentDir);
+        File currentDir = new File(System.getProperty("user.dir"));
+        currentDir = currentDir.getParentFile();
+        currentDir = new File(currentDir + "/plugins");
         String []plugins = currentDir.list();
         int i;
         URL[] jars = new URL[plugins.length];
@@ -122,7 +123,10 @@ public class FabricaMainGui extends javax.swing.JFrame {
         String plugin = ListaCarros.getSelectedValue();
         URL[] jar = new URL[1];
         try {
-            jar[0] = (new File("/home/aluno/INF011 Emanuel/Paterns/AbstractFactoryEmSalaDivididoEmProjetos/plugins/" + plugin + ".jar")).toURL();
+            File currentDir = new File(System.getProperty("user.dir"));
+            currentDir = currentDir.getParentFile();
+            currentDir = new File(currentDir + "/plugins");
+            jar[0] = (new File(currentDir + "/" + plugin + ".jar")).toURL();
         } catch (MalformedURLException ex) {
             Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
