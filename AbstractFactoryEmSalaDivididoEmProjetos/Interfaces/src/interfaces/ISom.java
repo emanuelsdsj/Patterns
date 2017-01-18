@@ -11,6 +11,6 @@ package interfaces;
  */
 public interface ISom {
     
-    public void tocar();
+    public String tocar();
     
 }

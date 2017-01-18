@@ -11,6 +11,6 @@ package interfaces;
  */
 public interface IMotor {
     
-    public void ligar();
+    public String ligar();
     
 }

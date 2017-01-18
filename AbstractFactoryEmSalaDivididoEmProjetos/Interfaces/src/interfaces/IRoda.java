@@ -11,6 +11,6 @@ package interfaces;
  */
 public interface IRoda {
     
-    public void alinhar();
+    public String alinhar();
     
 }
