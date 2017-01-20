@@ -42,13 +42,13 @@
                               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="alinharRoda" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Component id="alinharRodaButton" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="ligarMotor" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Component id="ligarMotorButton" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tocarSom" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Component id="tocarSomButton" min="-2" pref="103" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
                       </Group>
@@ -61,16 +61,16 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane2" pref="154" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="alinharRoda" alignment="3" max="32767" attributes="0"/>
-                  <Component id="ligarMotor" alignment="3" max="32767" attributes="0"/>
-                  <Component id="tocarSom" alignment="3" max="32767" attributes="0"/>
+                  <Component id="alinharRodaButton" alignment="3" max="32767" attributes="0"/>
+                  <Component id="ligarMotorButton" alignment="3" max="32767" attributes="0"/>
+                  <Component id="tocarSomButton" alignment="3" max="32767" attributes="0"/>
                   <Component id="RefreshButton" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -81,21 +81,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="TextArea">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="FabricarCarroButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Fabricar carro"/>
@@ -131,20 +116,43 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="alinharRoda">
+    <Component class="javax.swing.JButton" name="alinharRodaButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alinhar roda"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alinharRodaButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ligarMotor">
+    <Component class="javax.swing.JButton" name="ligarMotorButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ligar Motor"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ligarMotorButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="tocarSom">
+    <Component class="javax.swing.JButton" name="tocarSomButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tocar som"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tocarSomButtonActionPerformed"/>
+      </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JEditorPane" name="TextArea">
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
