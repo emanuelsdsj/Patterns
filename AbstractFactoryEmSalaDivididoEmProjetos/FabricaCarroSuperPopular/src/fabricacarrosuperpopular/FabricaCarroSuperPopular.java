@@ -20,7 +20,7 @@ public class FabricaCarroSuperPopular implements IAbstractFactory{
 
     @Override
     public ISom createSom() {
-        return new SomDIsquete();
+        return new SomDisquete();
     }
     
 }

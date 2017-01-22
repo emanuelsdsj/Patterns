@@ -3,7 +3,7 @@ package fabricacarrosuperpopular;
 
 import interfaces.ISom;
 
-public class SomDIsquete implements ISom{
+public class SomDisquete implements ISom{
 
     @Override
     public String tocar() {
