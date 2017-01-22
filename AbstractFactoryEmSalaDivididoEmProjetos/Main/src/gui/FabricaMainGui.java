@@ -61,7 +61,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
             }
         }
         URLClassLoader ulc = new URLClassLoader(jars);
-        text = "-- Selecione um tipo de fábrica de carro --";
+        text = "-- Selecione uma fábrica de carro --";
         this.TextArea.setText(TextArea.getText() + text + "\n");
         for(i = 0; i < plugins.length ; i++) {
             plugins[i] = plugins[i].split("\\.")[0];
