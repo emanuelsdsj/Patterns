@@ -44,7 +44,6 @@ public class FabricaMainGui extends javax.swing.JFrame {
     
     private void refreshPlugins() {
         int op;
-        this.ListaCarros.removeAll();
         this.selectedFactory = null;
         this.TextArea.setText("");
         String text = "";
