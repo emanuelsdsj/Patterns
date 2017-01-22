@@ -7,7 +7,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Main;
 
 public class FabricaMainGui extends javax.swing.JFrame {
     private IAbstractFactory selectedFactory;
@@ -17,16 +16,16 @@ public class FabricaMainGui extends javax.swing.JFrame {
         this.refreshPlugins();
     }
     
-    private void isCarroProntoParaUso(){
-        if(!ligarMotorButton.isEnabled() && !tocarSomButton.isEnabled() && !alinharRodaButton.isEnabled()) {
-            TextArea.setText(TextArea.getText() + "Carro pronto para uso" + "\n");
+    private void isCarroPronto(){
+        if(!this.ligarMotorButton.isEnabled() && !this.tocarSomButton.isEnabled() && !this.alinharRodaButton.isEnabled()) {
+            this.TextArea.setText(this.TextArea.getText() + "Carro com roda alinhada, motor ligado e som tocando" + "\n");
         }
     }
     
     private void refreshPlugins() {
-        ListaCarros.removeAll();
-        TextArea.setText("");
         int op;
+        this.ListaCarros.removeAll();
+        this.TextArea.setText("");
         String text = "";
         File currentDir = new File(System.getProperty("user.dir"));
         currentDir = currentDir.getParentFile();
@@ -34,8 +33,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         String []plugins = currentDir.list();
         int i;
         URL[] jars = new URL[plugins.length];
-        for (i = 0; i < plugins.length; i++)
-        {
+        for (i = 0; i < plugins.length; i++) {
             try {
                 jars[i] = (new File("./plugins/" + plugins[i])).toURL();
             } catch (MalformedURLException ex) {
@@ -44,11 +42,11 @@ public class FabricaMainGui extends javax.swing.JFrame {
         }
         URLClassLoader ulc = new URLClassLoader(jars);
         text = "-- Selecione um tipo de fábrica de carro --";
-        TextArea.setText(TextArea.getText() + text + "\n");
+        this.TextArea.setText(TextArea.getText() + text + "\n");
         for(i = 0; i < plugins.length ; i++) {
             plugins[i] = plugins[i].split("\\.")[0];
         }
-        ListaCarros.setListData(plugins); 
+        this.ListaCarros.setListData(plugins); 
     }
 
     @SuppressWarnings("unchecked")
@@ -81,6 +79,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
             }
         });
 
+        ListaCarros.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         ListaCarros.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Plugin 1", "Plugin 2", "..." };
             public int getSize() { return strings.length; }
@@ -112,35 +111,34 @@ public class FabricaMainGui extends javax.swing.JFrame {
             }
         });
 
+        TextArea.setEditable(false);
+        TextArea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jScrollPane1.setViewportView(TextArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(FabricarCarroButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(RefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                                .addGap(42, 42, 42))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGap(11, 11, 11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(RefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(alinharRodaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ligarMotorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(alinharRodaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ligarMotorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tocarSomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))))
+                            .addComponent(jScrollPane1)))
+                    .addComponent(FabricarCarroButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,7 +146,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -156,19 +154,18 @@ public class FabricaMainGui extends javax.swing.JFrame {
                     .addComponent(ligarMotorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tocarSomButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(RefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FabricarCarroButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(FabricarCarroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void FabricarCarroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FabricarCarroButtonActionPerformed
-        Main main = new Main();
-        TextArea.setText(""); 
         int op = ListaCarros.getSelectedIndex();
         String plugin = ListaCarros.getSelectedValue();
+        this.TextArea.setText(""); 
         URL[] jar = new URL[1];
         try {
             File currentDir = new File(System.getProperty("user.dir"));
@@ -180,7 +177,6 @@ public class FabricaMainGui extends javax.swing.JFrame {
         }
         URLClassLoader ulc = new URLClassLoader(jar);
         String factoryName = plugin.split("\\.")[0];
-        System.out.println("factory = " + jar[0]);
         IAbstractFactory factory = null;
         try {
             try {
@@ -191,35 +187,35 @@ public class FabricaMainGui extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-        selectedFactory = factory;
-        alinharRodaButton.setEnabled(true);
-        ligarMotorButton.setEnabled(true);
-        tocarSomButton.setEnabled(true);
+        this.selectedFactory = factory;
+        this.alinharRodaButton.setEnabled(true);
+        this.ligarMotorButton.setEnabled(true);
+        this.tocarSomButton.setEnabled(true);
     }//GEN-LAST:event_FabricarCarroButtonActionPerformed
 
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
         this.refreshPlugins();
-        alinharRodaButton.setEnabled(false);
-        ligarMotorButton.setEnabled(false);
-        tocarSomButton.setEnabled(false);
+        this.alinharRodaButton.setEnabled(false);
+        this.ligarMotorButton.setEnabled(false);
+        this.tocarSomButton.setEnabled(false);
     }//GEN-LAST:event_RefreshButtonActionPerformed
 
     private void alinharRodaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alinharRodaButtonActionPerformed
-        TextArea.setText(TextArea.getText() + this.selectedFactory.createRoda().alinhar() + "\n");
-        alinharRodaButton.setEnabled(false);
-        this.isCarroProntoParaUso();
+        this.TextArea.setText(TextArea.getText() + this.selectedFactory.createRoda().alinhar() + "\n");
+        this.alinharRodaButton.setEnabled(false);
+        this.isCarroPronto();
     }//GEN-LAST:event_alinharRodaButtonActionPerformed
 
     private void ligarMotorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligarMotorButtonActionPerformed
-        TextArea.setText(TextArea.getText() + this.selectedFactory.createMotor().ligar() + "\n");
-        ligarMotorButton.setEnabled(false);
-        this.isCarroProntoParaUso();
+        this.TextArea.setText(TextArea.getText() + this.selectedFactory.createMotor().ligar() + "\n");
+        this.ligarMotorButton.setEnabled(false);
+        this.isCarroPronto();
     }//GEN-LAST:event_ligarMotorButtonActionPerformed
 
     private void tocarSomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tocarSomButtonActionPerformed
-        TextArea.setText(TextArea.getText() + this.selectedFactory.createSom().tocar() + "\n");
-        tocarSomButton.setEnabled(false);
-        this.isCarroProntoParaUso();
+        this.TextArea.setText(TextArea.getText() + this.selectedFactory.createSom().tocar() + "\n");
+        this.tocarSomButton.setEnabled(false);
+        this.isCarroPronto();
     }//GEN-LAST:event_tocarSomButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
