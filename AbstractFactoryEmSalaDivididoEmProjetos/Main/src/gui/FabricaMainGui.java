@@ -45,6 +45,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
     private void refreshPlugins() {
         int op;
         this.ListaCarros.removeAll();
+        this.selectedFactory = null;
         this.TextArea.setText("");
         String text = "";
         File currentDir = new File(System.getProperty("user.dir"));
@@ -66,7 +67,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         for(i = 0; i < plugins.length ; i++) {
             plugins[i] = plugins[i].split("\\.")[0];
         }
-        this.ListaCarros.setListData(plugins); 
+        this.ListaCarros.setListData(plugins);
     }
 
     @SuppressWarnings("unchecked")
@@ -185,13 +186,24 @@ public class FabricaMainGui extends javax.swing.JFrame {
     private void FabricarCarroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FabricarCarroButtonActionPerformed
         int op = ListaCarros.getSelectedIndex();
         String plugin = ListaCarros.getSelectedValue();
+        if("".equals(plugin) || op == -1) {
+            this.TextArea.setText("-- Selecione uma fábrica de carro --");
+            return;
+        }
         this.TextArea.setText(""); 
         URL[] jar = new URL[1];
         try {
             File currentDir = new File(System.getProperty("user.dir"));
             currentDir = currentDir.getParentFile();
             currentDir = new File(currentDir + "/plugins");
-            jar[0] = (new File(currentDir + "/" + plugin + ".jar")).toURL();
+            String[] plugins = currentDir.list();
+            for (String plugin1 : plugins) {
+                if (plugin1.split("\\.")[0].equals(plugin)) {
+                    plugin = plugin1;
+                }
+            }
+            jar[0] = (new File(currentDir + "/" + plugin.split("\\.")[0] + "." + plugin.split("\\.")[1])).toURL();
+            currentDir = null;
         } catch (MalformedURLException ex) {
             Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
