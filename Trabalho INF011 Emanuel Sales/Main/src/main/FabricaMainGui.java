@@ -105,6 +105,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        ListaCarros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(ListaCarros);
 
         alinharRodaButton.setText("Alinhar roda");
