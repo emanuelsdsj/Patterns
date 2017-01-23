@@ -36,11 +36,11 @@ public class FabricaMainGui extends javax.swing.JFrame {
         });
     }
     
-    private void isCarroPronto(){
-        if(!this.ligarMotorButton.isEnabled() && !this.tocarSomButton.isEnabled() && !this.alinharRodaButton.isEnabled()) {
-            this.TextArea.setText(this.TextArea.getText() + "Carro com roda alinhada, motor ligado e som tocando" + "\n");
-        }
-    }
+//    private void isCarroPronto(){
+//        if(!this.ligarMotorButton.isEnabled() && !this.tocarSomButton.isEnabled() && !this.alinharRodaButton.isEnabled()) {
+//            this.TextArea.setText(this.TextArea.getText() + "Carro com roda alinhada, motor ligado e som tocando" + "\n");
+//        }
+//    }
     
     private void refreshPlugins() {
         int op;
@@ -234,20 +234,20 @@ public class FabricaMainGui extends javax.swing.JFrame {
 
     private void alinharRodaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alinharRodaButtonActionPerformed
         this.TextArea.setText(TextArea.getText() + this.selectedFactory.createRoda().alinhar() + "\n");
-        this.alinharRodaButton.setEnabled(false);
-        this.isCarroPronto();
+//        this.alinharRodaButton.setEnabled(false);
+//        this.isCarroPronto();
     }//GEN-LAST:event_alinharRodaButtonActionPerformed
 
     private void ligarMotorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligarMotorButtonActionPerformed
         this.TextArea.setText(TextArea.getText() + this.selectedFactory.createMotor().ligar() + "\n");
-        this.ligarMotorButton.setEnabled(false);
-        this.isCarroPronto();
+//        this.ligarMotorButton.setEnabled(false);
+//        this.isCarroPronto();
     }//GEN-LAST:event_ligarMotorButtonActionPerformed
 
     private void tocarSomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tocarSomButtonActionPerformed
         this.TextArea.setText(TextArea.getText() + this.selectedFactory.createSom().tocar() + "\n");
-        this.tocarSomButton.setEnabled(false);
-        this.isCarroPronto();
+//        this.tocarSomButton.setEnabled(false);
+//        this.isCarroPronto();
     }//GEN-LAST:event_tocarSomButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
