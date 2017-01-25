@@ -1,17 +1,17 @@
 package main;
 
 import interfaces.IAbstractFactory;
-import interfaces.IGaragem;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import interfaces.ICreator;
 
 public class FabricaMainGui extends javax.swing.JFrame {
     private IAbstractFactory selectedFactory;
-    private IGaragem selectedGaragem;
+    private ICreator selectedGaragem;
 
     public FabricaMainGui() {
         initComponents();
@@ -54,7 +54,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         File currentDir2 = new File(System.getProperty("user.dir"));
         currentDir = currentDir.getParentFile();
         currentDir2 = currentDir2.getParentFile();
-        currentDir = new File(currentDir + "/plugins");
+        currentDir = new File(currentDir + "/plugins/Carro");
         currentDir2 = new File(currentDir2 + "/plugins/Garagem");
         String []plugins = currentDir.list();
         String []plugins2 = currentDir2.list();
@@ -77,7 +77,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         }
         URLClassLoader ulc = new URLClassLoader(jars);
         URLClassLoader ulc2 = new URLClassLoader(jars2);
-        text = "-- Selecione uma fábrica de carro --";
+        text = "-- Selecione uma fábrica de carro ou Selecione um carro e uma garagem --";
         this.TextArea.setText(TextArea.getText() + text + "\n");
         for(i = 0; i < plugins.length ; i++) {
              plugins[i] = plugins[i].split("\\.")[0];
@@ -241,7 +241,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         int op = ListaCarros.getSelectedIndex();
         String plugin = ListaCarros.getSelectedValue();
         if("".equals(plugin) || op == -1) {
-            this.TextArea.setText("-- Selecione uma fábrica de carro --");
+            this.TextArea.setText("-- Selecione uma fábrica de carro ou Selecione um carro e uma garagem --");
             return;
         }
         this.TextArea.setText(""); 
@@ -249,7 +249,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         try {
             File currentDir = new File(System.getProperty("user.dir"));
             currentDir = currentDir.getParentFile();
-            currentDir = new File(currentDir + "/plugins");
+            currentDir = new File(currentDir + "/plugins/Carro");
             String[] plugins = currentDir.list();
             for (String plugin1 : plugins) {
                 if (plugin1.split("\\.")[0].equals(plugin)) {
@@ -309,8 +309,8 @@ public class FabricaMainGui extends javax.swing.JFrame {
         int op2 = ListaCarros.getSelectedIndex();
         String plugin = ListaCarros.getSelectedValue();
         String plugin2 = (String) ListaGaragem.getSelectedValue();
-        if("".equals(plugin) || op == -1) {
-            this.TextArea.setText("-- Selecione uma fábrica de carro --");
+        if((("".equals(plugin) || op == -1) || ("".equals(plugin2) || op2 == -1))) {
+            this.TextArea.setText("-- Selecione uma fábrica de carro ou Selecione um carro e uma garagem --");
             return;
         }
         this.TextArea.setText(""); 
@@ -321,7 +321,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
             File currentDir2 = new File(System.getProperty("user.dir"));
             currentDir2 = currentDir2.getParentFile();
             currentDir = currentDir.getParentFile();
-            currentDir = new File(currentDir + "/plugins");
+            currentDir = new File(currentDir + "/plugins/Carro");
             currentDir2 = new File(currentDir2 + "/plugins/Garagem");
             String[] plugins = currentDir.list();
             String [] plugins2 = currentDir2.list();
@@ -346,11 +346,11 @@ public class FabricaMainGui extends javax.swing.JFrame {
         String factoryName = plugin.split("\\.")[0];
         String factoryName2 = plugin2.split("\\.")[0];
         IAbstractFactory factory = null;
-        IGaragem garagem = null;
+        ICreator garagem = null;
         try {
             try {
                 factory = (IAbstractFactory) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
-                garagem = (IGaragem) Class.forName(factoryName2.toLowerCase() + "." + factoryName2, true, ulc2).newInstance();
+                garagem = (ICreator) Class.forName(factoryName2.toLowerCase() + "." + factoryName2, true, ulc2).newInstance();
             } catch (InstantiationException | IllegalAccessException ex) {
                 Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -359,7 +359,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         }
         this.selectedFactory = factory;
         this.selectedGaragem = garagem;
-        this.TextArea.setText(TextArea.getText() + this.selectedGaragem.estacionaCarro().estacionar(factory) + "\n");
+        this.TextArea.setText(TextArea.getText() + this.selectedGaragem.createGaragem().estacionar(factory) + "\n");
     }//GEN-LAST:event_estacionarCarroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

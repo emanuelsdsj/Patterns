@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package fabricagaragemcomum;
 
-import interfaces.IAbstractFactory;
+import interfaces.ICreator;
 import interfaces.IGaragem;
-import interfaces.ILocal;
 
-/**
- *
- * @author aluno
- */
-public class FabricaGaragemComum implements IGaragem{
+public class FabricaGaragemComum implements ICreator{
 
     @Override
-    public ILocal estacionaCarro() {
+    public IGaragem createGaragem() {
         return new LocalComum();
     }
 

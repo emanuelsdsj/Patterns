@@ -9,8 +9,8 @@ package interfaces;
  *
  * @author aluno
  */
-public interface ILocal {
+public interface ICreator {
     
-    public String estacionar(IAbstractFactory carro);
+    public IGaragem createGaragem();
     
 }

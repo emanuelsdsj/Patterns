@@ -6,13 +6,13 @@
 package fabricagaragemcomum;
 
 import interfaces.IAbstractFactory;
-import interfaces.ILocal;
+import interfaces.IGaragem;
 
 /**
  *
  * @author aluno
  */
-public class LocalComum implements ILocal {
+public class LocalComum implements IGaragem {
 
     @Override
     public String estacionar(IAbstractFactory carro) {
