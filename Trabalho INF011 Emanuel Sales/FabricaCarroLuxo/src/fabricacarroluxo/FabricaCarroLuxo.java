@@ -31,4 +31,9 @@ public class FabricaCarroLuxo implements IAbstractFactory{
         return new SomMultimidia();
     }
     
+    @Override
+    public String toString(){
+        return "Carro Luxo";
+    }
+    
 }

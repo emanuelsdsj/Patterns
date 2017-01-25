@@ -28,7 +28,12 @@ public class FabricaCarroPopular implements IAbstractFactory{
 
     @Override
     public ISom createSom() {
-        return new SomCD();
+       return new SomCD();
+    }
+    
+    @Override
+    public String toString(){
+       return "Carro Popular";
     }
     
 }

@@ -23,4 +23,9 @@ public class FabricaCarroSuperPopular implements IAbstractFactory{
         return new SomDisquete();
     }
     
+    @Override
+    public String toString(){
+        return "Carro Super Popular";
+    }
+    
 }
