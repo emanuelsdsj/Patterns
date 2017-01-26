@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fabricagaragemcomum;
+package fabricagaragempredio;
 
-import interfaces.IAbstractFactory;
+import interfaces.Carro;
 import interfaces.IGaragem;
 
 /**
  *
  * @author aluno
  */
-public class LocalComum implements IGaragem {
+public class GaragemPredio implements IGaragem{
 
     @Override
-    public String estacionar(IAbstractFactory carro) {
-        return "Estacionando " + carro.toString() + " na garagem comum";
+    public String estacionar(Carro carro) {
+        return "Estacionando carro na garagem prédio";
     }
-    
+      
 }

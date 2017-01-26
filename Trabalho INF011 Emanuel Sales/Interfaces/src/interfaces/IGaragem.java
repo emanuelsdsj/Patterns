@@ -11,6 +11,6 @@ package interfaces;
  */
 public interface IGaragem {
     
-    public String estacionar(IAbstractFactory carro);
+    public String estacionar(Carro carro);
     
 }

@@ -1,5 +1,6 @@
 package main;
 
+import interfaces.Carro;
 import interfaces.IAbstractFactory;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -65,7 +66,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         URL[] jars2 = new URL[plugins2.length];
         for (i = 0; i < plugins.length; i++) {
             try {
-                jars[i] = (new File("./plugins/" + plugins[i])).toURL();
+                jars[i] = (new File("./plugins/Carro" + plugins[i])).toURL();
             } catch (MalformedURLException ex) {
                 Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -275,7 +276,6 @@ public class FabricaMainGui extends javax.swing.JFrame {
         this.ligarMotorButton.setEnabled(true);
         this.tocarSomButton.setEnabled(true);
         this.estacionarCarro.setEnabled(true);
-        this.ListaCarros.setEnabled(false);
     }//GEN-LAST:event_FabricarCarroButtonActionPerformed
 
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
@@ -306,8 +306,9 @@ public class FabricaMainGui extends javax.swing.JFrame {
 
     private void estacionarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estacionarCarroActionPerformed
         int op2 = ListaGaragem.getSelectedIndex();
-        if(op2 == -1) {
-            this.TextArea.setText("-- Selecione um carro e uma garagem para estacionar --");
+        int op = ListaCarros.getSelectedIndex();
+        if(op2 == -1 || op == -1) {
+            this.TextArea.setText("-- Selecione uma garagem para estacionar --" + "\n");
             return;
         }
         String plugin2 = (String) ListaGaragem.getSelectedValue();
@@ -357,8 +358,12 @@ public class FabricaMainGui extends javax.swing.JFrame {
             Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.selectedFactory = factory;
+        Carro carro = new Carro();
+        carro.setMotor(factory.createMotor());
+        carro.setRoda(factory.createRoda());
+        carro.setSom(factory.createSom());
         this.selectedGaragem = garagem;
-        this.TextArea.setText(TextArea.getText() + this.selectedGaragem.createGaragem().estacionar(factory) + "\n");
+        this.TextArea.setText(TextArea.getText() + this.selectedGaragem.createGaragem().estacionar(carro) + "\n");
     }//GEN-LAST:event_estacionarCarroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

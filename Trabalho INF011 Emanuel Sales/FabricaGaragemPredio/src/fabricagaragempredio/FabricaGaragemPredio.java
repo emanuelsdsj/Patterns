@@ -8,7 +8,7 @@ public class FabricaGaragemPredio implements ICreator{
 
     @Override
     public IGaragem createGaragem() {
-        return new LocalPredio();
+        return new GaragemPredio();
     }
 
 }
