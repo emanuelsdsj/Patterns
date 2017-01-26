@@ -39,12 +39,6 @@ public class FabricaMainGui extends javax.swing.JFrame {
         });
     }
     
-//    private void isCarroPronto(){
-//        if(!this.ligarMotorButton.isEnabled() && !this.tocarSomButton.isEnabled() && !this.alinharRodaButton.isEnabled()) {
-//            this.TextArea.setText(this.TextArea.getText() + "Carro com roda alinhada, motor ligado e som tocando" + "\n");
-//        }
-//    }
-    
     private void refreshPlugins() {
         int op;
         int op2;
