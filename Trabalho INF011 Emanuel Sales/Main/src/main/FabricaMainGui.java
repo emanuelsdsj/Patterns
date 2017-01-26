@@ -282,20 +282,14 @@ public class FabricaMainGui extends javax.swing.JFrame {
 
     private void alinharRodaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alinharRodaButtonActionPerformed
         this.TextArea.setText(TextArea.getText() + this.selectedFactory.createRoda().alinhar() + "\n");
-//        this.alinharRodaButton.setEnabled(false);
-//        this.isCarroPronto();
     }//GEN-LAST:event_alinharRodaButtonActionPerformed
 
     private void ligarMotorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligarMotorButtonActionPerformed
         this.TextArea.setText(TextArea.getText() + this.selectedFactory.createMotor().ligar() + "\n");
-//        this.ligarMotorButton.setEnabled(false);
-//        this.isCarroPronto();
     }//GEN-LAST:event_ligarMotorButtonActionPerformed
 
     private void tocarSomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tocarSomButtonActionPerformed
         this.TextArea.setText(TextArea.getText() + this.selectedFactory.createSom().tocar() + "\n");
-//        this.tocarSomButton.setEnabled(false);
-//        this.isCarroPronto();
     }//GEN-LAST:event_tocarSomButtonActionPerformed
 
     private void estacionarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estacionarCarroActionPerformed
@@ -357,7 +351,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         carro.setRoda(factory.createRoda());
         carro.setSom(factory.createSom());
         this.selectedGaragem = garagem;
-        this.TextArea.setText(TextArea.getText() + this.selectedGaragem.createGaragem().estacionar(carro) + "\n");
+        this.TextArea.setText(TextArea.getText() + this.selectedGaragem.createGaragem().estacionar(carro) + factory.toString() + "\n");
     }//GEN-LAST:event_estacionarCarroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

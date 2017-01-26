@@ -16,7 +16,7 @@ public class GaragemPredio implements IGaragem{
 
     @Override
     public String estacionar(Carro carro) {
-        return "Estacionando carro na garagem prédio";
+        return "Estacionando na garagem prédio um ";
     }
       
 }
