@@ -21,5 +21,9 @@ public class Retrovisor implements IPrototype {
     public String exibirInfo() {
         return "Possui retrovisor";
     }
+    
+    public String toString() {
+        return "Retrovisor";
+    }
  
 }

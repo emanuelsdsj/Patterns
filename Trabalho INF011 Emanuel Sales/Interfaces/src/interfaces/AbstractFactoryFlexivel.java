@@ -12,11 +12,11 @@ import java.util.Map;
  *
  * @author Emanuel
  */
-public class AbstractFactoryFlexível {
+public class AbstractFactoryFlexivel {
     private Map<String, IPrototype> prototypes = new HashMap<String, IPrototype>();
     
     public Object create(String key) {
-        return prototypes.get(key);
+        return prototypes.get(key).clone();
     }
     
     public boolean addPrototypes(String key, IPrototype prototype) {

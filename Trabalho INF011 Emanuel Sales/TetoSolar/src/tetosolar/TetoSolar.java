@@ -22,4 +22,8 @@ public class TetoSolar implements IPrototype {
         return "Possui Teto Solar";
     }
     
+    public String toString() {
+        return "TetoSolar";
+    }
+    
 }

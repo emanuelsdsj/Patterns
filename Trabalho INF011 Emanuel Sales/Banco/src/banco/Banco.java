@@ -21,4 +21,8 @@ public class Banco implements IPrototype {
     public String exibirInfo() {
         return "Possui banco";
     }
+    
+    public String toString() {
+        return "Banco";
+    }
 }
