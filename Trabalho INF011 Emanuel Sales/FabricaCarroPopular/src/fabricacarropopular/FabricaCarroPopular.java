@@ -15,7 +15,18 @@ import interfaces.ISom;
  * @author aluno
  */
 public class FabricaCarroPopular implements IAbstractFactory{
-
+    private static FabricaCarroPopular instance;
+    
+    private FabricaCarroPopular() {
+        
+    }
+    
+    public static FabricaCarroPopular getInstance() {
+        if(instance == null) 
+            instance = new FabricaCarroPopular();
+        return instance;
+    }
+    
     @Override
     public IRoda createRoda() {
         return new RodaFerro();

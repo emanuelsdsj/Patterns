@@ -7,7 +7,18 @@ import interfaces.IRoda;
 import interfaces.ISom;
 
 public class FabricaCarroSuperPopular implements IAbstractFactory{
-
+    private static FabricaCarroSuperPopular instance;
+    
+    private FabricaCarroSuperPopular() {
+        
+    }
+    
+    public static FabricaCarroSuperPopular getInstance() {
+        if(instance == null) 
+            instance = new FabricaCarroSuperPopular();
+        return instance;
+    }
+    
     @Override
     public IRoda createRoda() {
         return new RodaMadeira();
