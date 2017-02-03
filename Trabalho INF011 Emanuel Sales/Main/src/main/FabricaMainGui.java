@@ -18,7 +18,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
     private IAbstractFactory selectedFactory;
     private ICreator selectedGaragem;
     private Vector<String> vector = new Vector<String>();
-    private AbstractFactoryFlexivel aff = new AbstractFactoryFlexivel();
+    private AbstractFactoryFlexivel abstractFactoryFlexivel = new AbstractFactoryFlexivel();
 
     public FabricaMainGui() {
         initComponents();
@@ -132,10 +132,14 @@ public class FabricaMainGui extends javax.swing.JFrame {
         ListaPrototypesEscolhidos = new javax.swing.JList();
         AdicionarButton = new javax.swing.JButton();
         RemoverButton = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        TextAreaFabricaConfigurada = new javax.swing.JEditorPane();
+        usarFabricaConfigurada = new javax.swing.JButton();
+        voltarButton = new javax.swing.JButton();
         FabricarCarroButton = new javax.swing.JButton();
         RefreshButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ListaCarros = new javax.swing.JList<String>();
+        ListaCarros = new javax.swing.JList<>();
         alinharRodaButton = new javax.swing.JButton();
         ligarMotorButton = new javax.swing.JButton();
         tocarSomButton = new javax.swing.JButton();
@@ -146,7 +150,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
         estacionarCarro = new javax.swing.JButton();
         configurarFabricaButton = new javax.swing.JButton();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(400, 400));
+        jFrame1.setMinimumSize(new java.awt.Dimension(500, 500));
 
         ListaPrototypes.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { };
@@ -176,35 +180,67 @@ public class FabricaMainGui extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane6.setViewportView(TextAreaFabricaConfigurada);
+
+        usarFabricaConfigurada.setText("Usar Fábrica");
+        usarFabricaConfigurada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usarFabricaConfiguradaActionPerformed(evt);
+            }
+        });
+
+        voltarButton.setText("Voltar");
+        voltarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AdicionarButton)
-                    .addComponent(RemoverButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jFrame1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jFrame1Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(AdicionarButton)
+                                    .addComponent(RemoverButton))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(usarFabricaConfigurada, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
+            .addGroup(jFrame1Layout.createSequentialGroup()
+                .addGap(206, 206, 206)
+                .addComponent(voltarButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5))
-                .addContainerGap())
             .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(AdicionarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(RemoverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94))
+                .addContainerGap()
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addComponent(AdicionarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RemoverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addComponent(usarFabricaConfigurada, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(voltarButton))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -471,7 +507,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
     private void AdicionarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarButtonActionPerformed
         int op = ListaPrototypes.getSelectedIndex();
         if(op == -1) {
-            this.TextArea.setText("-- Selecione uma fábrica de carro --");
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "-- Selecione um prototipo --" + "\n");
             return;
         }
         String plugin = (String) ListaPrototypes.getSelectedValue();
@@ -504,24 +540,46 @@ public class FabricaMainGui extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FabricaMainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.aff.addPrototypes(prototype.toString(), prototype.clone());
-        this.vector.add(prototype.toString());
-        this.ListaPrototypesEscolhidos.setListData(this.vector);
-        this.alinharRodaButton.setEnabled(true);
-        this.ligarMotorButton.setEnabled(true);
-        this.tocarSomButton.setEnabled(true);
-        this.estacionarCarro.setEnabled(true);
+        if(this.abstractFactoryFlexivel.addPrototypes(prototype.toString(), prototype.clone())) {
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "Adicionado " + prototype.toString() + "\n");
+            this.vector.add(prototype.toString());
+            this.ListaPrototypesEscolhidos.setListData(this.vector);
+        } else
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "A fábrica já possui esse prototipo" + "\n");   
     }//GEN-LAST:event_AdicionarButtonActionPerformed
 
     private void RemoverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverButtonActionPerformed
-        // TODO add your handling code here:
+        int op = ListaPrototypesEscolhidos.getSelectedIndex();
+        if(op == -1) {
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "-- Selecione um prototipo --" + "\n");
+            return;
+        }
+        String plugin = (String) ListaPrototypesEscolhidos.getSelectedValue();
+        
+        if(this.abstractFactoryFlexivel.remove(plugin)) {
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "removido da fábica o " + plugin + "\n");
+            this.vector.remove(plugin);
+            this.ListaPrototypesEscolhidos.setListData(this.vector);
+        } else
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "A fábrica não possui esse prototipo" + "\n");        
     }//GEN-LAST:event_RemoverButtonActionPerformed
 
     private void configurarFabricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configurarFabricaButtonActionPerformed
        jFrame1.setVisible(true);
+       this.TextAreaFabricaConfigurada.setText("-- Selecione um prototipo --" + "\n");
        this.refreshPluginsPrototypes();
-       
+       this.setVisible(false);
     }//GEN-LAST:event_configurarFabricaButtonActionPerformed
+
+    private void usarFabricaConfiguradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usarFabricaConfiguradaActionPerformed
+        for(int i = 0; i < this.vector.size(); i++)
+            this.TextAreaFabricaConfigurada.setText(TextAreaFabricaConfigurada.getText() + "A Fábrica possui " + this.abstractFactoryFlexivel.exibirInfo(vector.get(i)) +"\n");
+    }//GEN-LAST:event_usarFabricaConfiguradaActionPerformed
+
+    private void voltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarButtonActionPerformed
+        this.setVisible(true);
+        jFrame1.setVisible(false);
+    }//GEN-LAST:event_voltarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdicionarButton;
@@ -533,6 +591,7 @@ public class FabricaMainGui extends javax.swing.JFrame {
     private javax.swing.JButton RefreshButton;
     private javax.swing.JButton RemoverButton;
     private javax.swing.JEditorPane TextArea;
+    private javax.swing.JEditorPane TextAreaFabricaConfigurada;
     private javax.swing.JButton alinharRodaButton;
     private javax.swing.JButton configurarFabricaButton;
     private javax.swing.JButton estacionarCarro;
@@ -542,7 +601,10 @@ public class FabricaMainGui extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JButton ligarMotorButton;
     private javax.swing.JButton tocarSomButton;
+    private javax.swing.JButton usarFabricaConfigurada;
+    private javax.swing.JButton voltarButton;
     // End of variables declaration//GEN-END:variables
 }

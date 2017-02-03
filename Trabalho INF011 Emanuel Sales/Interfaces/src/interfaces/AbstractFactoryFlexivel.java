@@ -20,10 +20,14 @@ public class AbstractFactoryFlexivel {
     }
     
     public boolean addPrototypes(String key, IPrototype prototype) {
-        return prototypes.put(key, prototype) != null;
+        return prototypes.put(key, prototype) == null;
     }
     
     public boolean remove(String key) {
         return prototypes.remove(key) != null;
     }   
+    
+    public String exibirInfo(String key){
+        return prototypes.get(key).toString();
+    }
 }
