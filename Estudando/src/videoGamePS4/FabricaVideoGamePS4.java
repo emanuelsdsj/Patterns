@@ -8,6 +8,10 @@ package videoGamePS4;
 import Interfaces.IConsole;
 import Interfaces.IControle;
 import Interfaces.IAbstractFactory;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,16 +19,25 @@ import Interfaces.IAbstractFactory;
  */
 public class FabricaVideoGamePS4 implements IAbstractFactory{
 
-    private static FabricaVideoGamePS4 instance;
+    private static FabricaVideoGamePS4[] instance;
+    private static int tam;
+    private static int contagem = 0;
     
     private FabricaVideoGamePS4() {
-        
+   
+    }
+    
+    public static void initialize(int tam) {
+        FabricaVideoGamePS4.tam = tam;
+        instance = new FabricaVideoGamePS4[tam];
     }
     
     public static FabricaVideoGamePS4 getInstance() {
-        if(instance == null)
-            instance = new FabricaVideoGamePS4();
-        return instance;
+        if(contagem == tam)
+            contagem = 0;
+        if(instance[contagem] == null)
+            instance[contagem] = new FabricaVideoGamePS4();
+        return instance[contagem++];
     }
     
     @Override

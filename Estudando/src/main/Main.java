@@ -5,6 +5,9 @@
  */
 package main;
 
+import FlexibleFactory.FlexibleFactory;
+import FlexibleFactory.Motor;
+import FlexibleFactory.Pneu;
 import Interfaces.AbstractFactoryFlexivel;
 import Interfaces.IConsole;
 import Interfaces.IControle;
@@ -64,7 +67,25 @@ public class Main {
 //       wiiClone.Ligar();
        
        //Singleton
-//       IAbstractFactory videogame = FabricaVideoGamePS4.getInstance();
+       FabricaVideoGamePS4.initialize(3);
+       IAbstractFactory videogame1 = FabricaVideoGamePS4.getInstance();
+       IAbstractFactory videogame2 = FabricaVideoGamePS4.getInstance();
+       IAbstractFactory videogame3 = FabricaVideoGamePS4.getInstance();
+       IAbstractFactory videogame4 = FabricaVideoGamePS4.getInstance();
+       
+       if(videogame1 == videogame4)
+            System.out.println("OK");
+       
+       
+       FlexibleFactory ff = new FlexibleFactory();
+       ff.addPrototype("Motor", new Motor());
+       ff.addPrototype("Pneu", new Pneu());
+       Pneu p = (Pneu) ff.createPrototype("Pneu");
+       Motor m = (Motor) ff.createPrototype("Motor");
+       
+       if(ff.createPrototype("Chassi") == null) 
+           System.out.println("NULL");
+       
 //       videogame.createConsole().Ligar();
 //       videogame.createControle().Controlar();
 //       
