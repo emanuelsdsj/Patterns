@@ -5,6 +5,7 @@
 package blok.gui;
 
 import blok.simulator.AdapterJBox2D;
+import blok.simulator.ISimulator;
 import java.awt.Dimension;
 
 /**
@@ -30,7 +31,7 @@ public class MainWindow extends javax.swing.JFrame {
         setResizable(false);
         pack();
         
-        AdapterJBox2D simulator = new AdapterJBox2D(mainPanel);
+        ISimulator simulator = new AdapterJBox2D(mainPanel);
         mainPanel.setSimulator(simulator);
         simulator.init();
         //simulator.start();

@@ -8,6 +8,7 @@ package blok.simulator;
 
 import blok.gui.MainPanel;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -19,6 +20,8 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.jbox2d.pooling.IWorldPool;
+import org.jbox2d.pooling.normal.DefaultWorldPool;
 
 /**
  *
@@ -45,7 +48,8 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     }
 
     public void init() {
-        m_world = new World(new Vec2(0, -10f), true);
+        //pool = new DefaultWorldPool(100, 10);
+        m_world = new WorldJBox2D(new Vec2(0, -10f));
         m_world.setContactListener(this);
         m_bodies.clear();
 
@@ -66,12 +70,14 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
         m_mainPanel.bodiesCreated(m_bodies);
     }
 
-    private Body createBody(float x, float y, float width, float height, boolean dynamic, float density, float friction, float restitution) {
+    private BodyJBox2D createBody(float x, float y, float width, float height, boolean dynamic, float density, float friction, float restitution) {
         BodyDef bodyDef = new BodyDef();
         if (dynamic)
             bodyDef.type = BodyType.DYNAMIC;
         bodyDef.position.set(x, y);
-        Body body = m_world.createBody(bodyDef);
+        //BodyJBox2D body = new BodyJBox2D(bodyDef, m_world);
+        BodyJBox2D body =  m_world.createBodyJBox2D(bodyDef);
+        //Body body =  m_world.createBody(bodyDef);
         PolygonShape box = new PolygonShape();
         box.setAsBox(width/2, height/2);
         FixtureDef fixtureDef = new FixtureDef();
@@ -87,7 +93,7 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     
     @Override
     public void removeBody(Object body) {
-         m_world.destroyBody((Body) body);
+        m_world.destroyBody((Body) body);
         m_bodies.remove(body);
         if (m_bodies.size() == 2)
         {
@@ -128,8 +134,9 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     private final ScheduledExecutorService m_scheduler = Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> m_schedulerHandle = null;
             
-    private static World m_world;
-    private ArrayList<Body> m_bodies = new ArrayList<Body>();
-    private Body m_player = null;
-    private Body m_ground = null;
+    private static WorldJBox2D m_world;
+    private List<IBody> m_bodies = new ArrayList<IBody>();
+    private BodyJBox2D m_player = null;
+    private BodyJBox2D m_ground = null;
+    IWorldPool pool = null;
 }

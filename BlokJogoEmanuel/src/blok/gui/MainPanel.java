@@ -4,8 +4,8 @@
  */
 package blok.gui;
 
+import blok.simulator.IBody;
 import blok.simulator.ISimulator;
-//import blok.simulator.Simulator;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,7 +14,6 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
@@ -22,8 +21,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
+//import org.jbox2d.common.Vec2;
+//import org.jbox2d.dynamics.Body;
 
 /**
  *
@@ -71,8 +70,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Body toBeRemoved = null;
-        for (Body body : m_bodyRect.keySet()) {
+        IBody toBeRemoved = null;
+        for (IBody body : m_bodyRect.keySet()) {
             java.awt.Rectangle rect = m_bodyRect.get(body);
             if (rect.contains(e.getPoint()) && m_state == State.RUNNING && rect != m_player) {
                 m_simulator.removeBody(body);
@@ -121,39 +120,39 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         }
     }
     
-    public void bodiesUpdated(ArrayList<Body> bodies) {
+    public void bodiesUpdated(java.util.List<IBody> bodies) {
         Dimension size = getSize();
-        for (Body body : bodies) {
-            Vec2 position = body.getPosition();
+        for (IBody body : bodies) {
+            float position[] = body.getPosition_();
             if (body.getUserData() != null)
                 // Player
-                m_bodyRect.get(body).setLocation(size.width/2-28 + (int) position.x, size.height/2-28 - (int) position.y);
+                m_bodyRect.get(body).setLocation(size.width/2-28 + (int) position[0], size.height/2-28 - (int) position[1]);
             else
                 // Block
-                m_bodyRect.get(body).setLocation(size.width/2-14 + (int) position.x, size.height/2-14 - (int) position.y);
+                m_bodyRect.get(body).setLocation(size.width/2-14 + (int) position[0], size.height/2-14 - (int) position[1]);
         }
 
         repaint();
     }
 
-    public void bodiesCreated(ArrayList<Body> bodies) {
+    public void bodiesCreated(java.util.List<IBody> bodies) {
         m_bodyRect.clear();
         Dimension size = getSize();
-        for (Body body : bodies) {
-            Vec2 position = body.getPosition();
+        for (IBody body : bodies) {
+            float[] position = body.getPosition_();
             Rectangle rectangle = new Rectangle();
             if (body.getUserData() != null)
             {
                 // Player
                 rectangle.setRect(-28, -28, 56, 56);
-                rectangle.setLocation(size.width/2-28 + (int) position.x, size.height/2-28 - (int) position.y);
+                rectangle.setLocation(size.width/2-28 + (int) position[0], size.height/2-28 - (int) position[1]);
                 m_player = rectangle;
             }
             else
             {
                 // Block
                 rectangle.setRect(-14, -14, 28, 28);
-                rectangle.setLocation(size.width/2-14 + (int) position.x, size.height/2-14 - (int) position.y);
+                rectangle.setLocation(size.width/2-14 + (int) position[0], size.height/2-14 - (int) position[1]);
             }
             m_bodyRect.put(body, rectangle);
         }
@@ -262,8 +261,9 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     // End of variables declaration//GEN-END:variables
 
     private ISimulator m_simulator;
-    private HashMap<Body, Rectangle> m_bodyRect = new HashMap<Body, Rectangle>();
+    private HashMap<IBody, Rectangle> m_bodyRect = new HashMap<IBody, Rectangle>();
     private Rectangle m_player;
+
     public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
     private State m_state = State.INITIAL;
     private String m_playerImage;
