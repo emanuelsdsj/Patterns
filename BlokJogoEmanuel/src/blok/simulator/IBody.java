@@ -13,6 +13,5 @@ public interface IBody {
    
     public float[] getPosition_();
     public Object getUserData();
-
     public void setUserData_(String player);
 }
