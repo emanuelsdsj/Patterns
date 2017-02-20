@@ -21,22 +21,23 @@ public class WorldJBox2D extends World {
    
     
     public BodyJBox2D createBodyJBox2D(BodyDef def) { 
-    assert (isLocked() == false);
-    if (isLocked()) {
-      return null;
-    }
-    // TODO djm pooling
-    BodyJBox2D b = new BodyJBox2D(def, this);
-    
-    // add to world doubly linked list
-    b.m_prev = null;
-    b.m_next = m_bodyList;
-    if (m_bodyList != null) {
-      m_bodyList.m_prev = b;
-    }
-    m_bodyList = b;
-    ++m_bodyCount;
+        assert (isLocked() == false);
+        if (isLocked()) {
+          return null;
+        }
+        // TODO djm pooling
+        BodyJBox2D b = new BodyJBox2D(def, this);
 
-    return b;
-  }   
+//        // add to world doubly linked list
+//        b.m_prev = null;
+//        b.m_next = m_bodyList;
+//
+//        if (m_bodyList != null) {
+//          m_bodyList.m_prev = b;
+//        }
+//        m_bodyList = b;
+//        ++m_bodyCount;
+
+        return b;
+    }   
 }
