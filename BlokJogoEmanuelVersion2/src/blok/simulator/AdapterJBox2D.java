@@ -20,8 +20,6 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
-import org.jbox2d.pooling.IWorldPool;
-import org.jbox2d.pooling.normal.DefaultWorldPool;
 
 /**
  *
@@ -127,10 +125,11 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
         Body body = new Body(def, m_world);
         System.out.println( vec2.x  + "   " + vec2.y +   " / " + body.getPosition().x + "   " + body.getPosition().y);
         for(int i = 0 ; i< m_bodies.size();i++) {
-            if(bodyPoint.getX() == m_bodies.get(i).getPosition().x && bodyPoint.getY() == m_bodies.get(i).getPosition().y)
+            if(bodyPoint.getX() == m_bodies.get(i).getPosition().x && bodyPoint.getY() == m_bodies.get(i).getPosition().y) {
                 m_world.destroyBody(m_bodies.get(i));
                 m_bodies.remove(m_bodies.get(i));  
                 break;
+            }
         }
         if (m_bodies.size() == 2)
         {
@@ -177,5 +176,4 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     private Body m_ground = null;
     private ArrayList<Point2D> points = new ArrayList<Point2D>();
     private ArrayList<Object> userData = new ArrayList<Object>();
-    IWorldPool pool = null;
 }
