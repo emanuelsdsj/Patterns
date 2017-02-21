@@ -45,21 +45,27 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     public void run() {
         m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
         
-        int status = 0;
-        int remove = -1;
-        for(int i = 0; i < m_bodies.size(); i++) {
-            status = 0;
-            for(int j = 0; j < m_bodies.size(); j++) {
-                if(points.get(i).getX() == m_bodies.get(j).getPosition().x && points.get(i).getY() == m_bodies.get(j).getPosition().y)
-                    status = 1;
+        if(points.size() > m_bodies.size()) {
+            int status = 0;
+            int remove = -1;
+            for(int i = 0; i < m_bodies.size(); i++) {
+                status = 0;
+                for(int j = 0; j < m_bodies.size(); j++) {
+                    if(points.get(i).getX() == m_bodies.get(j).getPosition().x && points.get(i).getY() == m_bodies.get(j).getPosition().y)
+                        status = 1;
+                }
+                if(status == 0)
+                    remove = i;
+            }     
+            if(remove != -1) {
+                points.remove(remove);
+                userData.remove(remove);
             }
-            if(status == 0) {
-                remove = i;
+
+            for(int i = 0; i < m_bodies.size(); i++) {
+                points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
+                userData.add(m_bodies.get(i).getUserData());
             }
-        }     
-        if(remove != -1) {
-            points.remove(remove);
-            userData.remove(remove);
         }
         
         m_mainPanel.bodiesUpdated(points, userData);
@@ -75,23 +81,21 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
 
         // Blocks
         int i = 0, j = 0;
-        for (i = 0; i < 10; ++i) {
-            for (j = 0; j < 11 - i; ++j) {
+        for (i = 0; i < 10; ++i) 
+            for (j = 0; j < 11 - i; ++j) 
                 m_bodies.add(createBody(-150.0f+15*i+30*j, -236.0f+30*i, 28.0f, 28.0f, true, 1.0f, 0.3f, 0.5f));
-            }
-        }
+        
         // Player
         j-=2;
         m_bodies.add(m_player = createBody(-150.0f+15*i+30*j, -236.0f+30*i+14, 56.0f, 56.0f, true, 1.0f, 0.3f, 0.5f));
         m_player.setUserData("player");
-
+             
         for(i = 0; i < m_bodies.size(); i++) {
             points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
             userData.add(m_bodies.get(i).getUserData());
         }
         //points.add(new Point2D.Double(m_player.getPosition().x, m_player.getPosition().y));
-        //userData.add(m_player.getUserData());  
-            
+        //userData.add(m_player.getUserData());    
         m_mainPanel.bodiesCreated(points, userData);
     }
 
