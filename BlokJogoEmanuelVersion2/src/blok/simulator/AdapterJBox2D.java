@@ -65,7 +65,12 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
                 userData.add(m_bodies.get(i).getUserData());
             }
         }
-        
+//        else if(points.size() == m_bodies.size()) {
+//            ArrayList<Point2D> points2 = new ArrayList<Point2D>();
+//            ArrayList<Object> userData2 = new ArrayList<Object>();
+//            m_mainPanel.bodiesUpdated(points2, userData2);
+//        }
+
         m_mainPanel.bodiesUpdated(points, userData);
     }
 
