@@ -44,17 +44,24 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     @Override
     public void run() {
         m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
-        ArrayList<Point2D> points = new ArrayList<Point2D>();
-        ArrayList<Object> userData = new ArrayList<Object>();
-        if(m_bodies.size() <= 0) {
-            points = new ArrayList<Point2D>();
-            userData = new ArrayList<Object>(); 
-            for(int i = 0; i < m_bodies.size(); i++) {
-                points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
-                userData.add(m_bodies.get(i).getUserData());
+        
+        int status = 0;
+        int remove = -1;
+        for(int i = 0; i < m_bodies.size(); i++) {
+            status = 0;
+            for(int j = 0; j < m_bodies.size(); j++) {
+                if(points.get(i).getX() == m_bodies.get(j).getPosition().x && points.get(i).getY() == m_bodies.get(j).getPosition().y)
+                    status = 1;
             }
+            if(status == 0) {
+                remove = i;
+            }
+        }     
+        if(remove != -1) {
+            points.remove(remove);
+            userData.remove(remove);
         }
- 
+        
         m_mainPanel.bodiesUpdated(points, userData);
     }
 
@@ -78,16 +85,12 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
         m_bodies.add(m_player = createBody(-150.0f+15*i+30*j, -236.0f+30*i+14, 56.0f, 56.0f, true, 1.0f, 0.3f, 0.5f));
         m_player.setUserData("player");
 
-        ArrayList<Point2D> points = new ArrayList<Point2D>();
-        ArrayList<Object> userData = new ArrayList<Object>();
-        if(m_bodies.size() > 0) {
-            for(i = 0; i < m_bodies.size(); i++) {
-                points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
-                userData.add(m_bodies.get(i).getUserData());
-            }
-            //points.add(new Point2D.Double(m_player.getPosition().x, m_player.getPosition().y));
-            //userData.add(m_player.getUserData());
+        for(i = 0; i < m_bodies.size(); i++) {
+            points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
+            userData.add(m_bodies.get(i).getUserData());
         }
+        //points.add(new Point2D.Double(m_player.getPosition().x, m_player.getPosition().y));
+        //userData.add(m_player.getUserData());  
             
         m_mainPanel.bodiesCreated(points, userData);
     }
@@ -119,8 +122,12 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
         def.position = vec2;
         Body body = new Body(def, m_world);
         System.out.println( vec2.x  + "   " + vec2.y +   " / " + body.getPosition().x + "   " + body.getPosition().y);
-        m_world.destroyBody(body);
-        m_bodies.remove(body);
+        for(int i = 0 ; i< m_bodies.size();i++) {
+            if(bodyPoint.getX() == m_bodies.get(i).getPosition().x && bodyPoint.getY() == m_bodies.get(i).getPosition().y)
+                m_world.destroyBody(m_bodies.get(i));
+                m_bodies.remove(m_bodies.get(i));  
+                break;
+        }
         if (m_bodies.size() == 2)
         {
             stop();
@@ -164,5 +171,7 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     private ArrayList<Body> m_bodies = new ArrayList<Body>();
     private Body m_player = null;
     private Body m_ground = null;
+    private ArrayList<Point2D> points = new ArrayList<Point2D>();
+    private ArrayList<Object> userData = new ArrayList<Object>();
     IWorldPool pool = null;
 }
