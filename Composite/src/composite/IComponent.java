@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FlexibleFactory;
-
-import Interfaces.IPrototype;
+package composite;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public class Pneu implements IPrototype {
-
-    @Override
-    public IPrototype clone() {
-        return new Pneu();
-    }
+public interface IComponent {
+    
+    public void girar();
     
 }

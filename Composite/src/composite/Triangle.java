@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
+package composite;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public interface IAbstractFactory {
+public class Triangle implements IComponent {
+
+    @Override
+    public void girar() {
+        System.out.println("Girando triangle");
+    }
     
-    public IConsole createConsole();
-    public IControle createControle();    
 }

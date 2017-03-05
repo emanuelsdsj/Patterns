@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package videoGameXbox;
-
-import Interfaces.IConsole;
+package composite;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public class ConsoleXbox implements IConsole {
+public class Rectangle implements IComponent {
 
     @Override
-    public void Ligar() {
-        System.out.println("Ligando console do xbox");
-    }  
+    public void girar() {
+        System.out.println("Girando rectangle");
+    }
+    
 }
