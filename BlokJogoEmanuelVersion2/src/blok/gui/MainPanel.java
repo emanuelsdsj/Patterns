@@ -73,6 +73,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
             if (rect.contains(e.getPoint()) && m_state == State.RUNNING && rect != m_player) {
                 m_simulator.removeBody(body);
                 toBeRemoved = body;
+                m_bodyRect.remove(toBeRemoved);
                 break;
             }
         }
@@ -117,10 +118,10 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         }
     }
     
-    public void bodiesUpdated(ArrayList<Point2D> bodies, ArrayList<Object> userData) {
+    public void bodiesUpdated(ArrayList<Point2D> bodies) {
         Dimension size = getSize();
         for (int i = 0; i < bodies.size(); i++) {
-            if (userData.get(i) != null)
+            if (bodies.size() - 1 == i)
                 // Player
                 m_bodyRect.get(bodies.get(i)).setLocation(size.width/2-28 + (int) bodies.get(i).getX(), size.height/2-28 - (int) bodies.get(i).getY());
             else
@@ -131,12 +132,13 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         repaint();
     }
 
-    public void bodiesCreated(ArrayList<Point2D> bodies, ArrayList<Object> userData) {
+    public void bodiesCreated(ArrayList<Point2D> bodies) {
         m_bodyRect.clear();
+        System.out.println("xd");
         Dimension size = getSize();
         for (int i = 0; i < bodies.size(); i++) {
             Rectangle rectangle = new Rectangle();
-            if (userData.get(i) != null)
+            if (bodies.size() - 1 == i)
             {
                 // Player
                 rectangle.setRect(-28, -28, 56, 56);

@@ -9,6 +9,8 @@ package blok.simulator;
 import blok.gui.MainPanel;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -42,42 +44,23 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     @Override
     public void run() {
         m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
+
+        //if(m_bodies.size() == points.size() && m_bodies.size() != 0 && points.size() != 0) {
+        //    for(int i = 0; i < m_bodies.size(); i++) {
+        //       points.get(i).setLocation(bodyFind.get(points.get(i)).getPosition().x, bodyFind.get(points.get(i)).getPosition().y);
+         //   }
+        //}
         
-        if(points.size() > m_bodies.size()) {
-            int status = 0;
-            int remove = -1;
-            for(int i = 0; i < m_bodies.size(); i++) {
-                status = 0;
-                for(int j = 0; j < m_bodies.size(); j++) {
-                    if(points.get(i).getX() == m_bodies.get(j).getPosition().x && points.get(i).getY() == m_bodies.get(j).getPosition().y)
-                        status = 1;
-                }
-                if(status == 0)
-                    remove = i;
-            }     
-            if(remove != -1) {
-                points.remove(remove);
-                userData.remove(remove);
-            }
-
-            for(int i = 0; i < m_bodies.size(); i++) {
-                points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
-                userData.add(m_bodies.get(i).getUserData());
-            }
-        }
-//        else if(points.size() == m_bodies.size()) {
-//            ArrayList<Point2D> points2 = new ArrayList<Point2D>();
-//            ArrayList<Object> userData2 = new ArrayList<Object>();
-//            m_mainPanel.bodiesUpdated(points2, userData2);
-//        }
-
-        m_mainPanel.bodiesUpdated(points, userData);
+        System.out.println("Size =" + m_world.getBodyCount());
+        m_mainPanel.bodiesUpdated(points); 
+       
     }
 
     public void init() {
-        m_world = new World(new Vec2(0, -10f));
+        m_world = new World(new Vec2(0, -10f), true);
         m_world.setContactListener(this);
         m_bodies.clear();
+        points.clear();
 
         // Ground
         m_ground = createBody(0.0f, -260.0f, 900.0f, 20.0f, false, 1.0f, 0.3f, 0.5f);
@@ -95,18 +78,17 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
              
         for(i = 0; i < m_bodies.size(); i++) {
             points.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
-            userData.add(m_bodies.get(i).getUserData());
-        }
-        //points.add(new Point2D.Double(m_player.getPosition().x, m_player.getPosition().y));
-        //userData.add(m_player.getUserData());    
-        m_mainPanel.bodiesCreated(points, userData);
+            pointFind.put(m_bodies.get(i), points.get(i));
+            bodyFind.put(points.get(i), m_bodies.get(i));
+        }  
+        m_mainPanel.bodiesCreated(points);
     }
 
     private Body createBody(float x, float y, float width, float height, boolean dynamic, float density, float friction, float restitution) {
         BodyDef bodyDef = new BodyDef();
         if (dynamic)
             bodyDef.type = BodyType.DYNAMIC;
-        bodyDef.position.set(x, y);;
+        bodyDef.position.set(x, y);
         Body body =  m_world.createBody(bodyDef);
         PolygonShape box = new PolygonShape();
         box.setAsBox(width/2, height/2);
@@ -129,14 +111,24 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
         def.position = vec2;
         Body body = new Body(def, m_world);
         System.out.println( vec2.x  + "   " + vec2.y +   " / " + body.getPosition().x + "   " + body.getPosition().y);
-        for(int i = 0 ; i< m_bodies.size();i++) {
-            if(bodyPoint.getX() == m_bodies.get(i).getPosition().x && bodyPoint.getY() == m_bodies.get(i).getPosition().y) {
-                m_world.destroyBody(m_bodies.get(i));
-                m_bodies.remove(m_bodies.get(i));  
+        
+        
+        for(int i = 0 ; i< points.size();i++) {
+            if(bodyPoint.getX() == points.get(i).getX() && bodyPoint.getY() == points.get(i).getY()) {
+                points.remove(bodyPoint);
+                m_world.destroyBody(bodyFind.get(bodyPoint));
+                m_bodies.remove(bodyFind.get(bodyPoint));
                 break;
             }
         }
-        if (m_bodies.size() == 2)
+        
+        //for(int i = 0 ; i< m_bodies.size();i++) {
+        //   if(bodyPoint.getX() == m_bodies.get(i).getPosition().x && bodyPoint.getY() == m_bodies.get(i).getPosition().y) {
+                 
+        //        break;
+        //   }
+        //}
+        if (points.size() == 2)
         {
             stop();
             m_mainPanel.setState(MainPanel.State.YOUWON);
@@ -180,5 +172,7 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     private Body m_player = null;
     private Body m_ground = null;
     private ArrayList<Point2D> points = new ArrayList<Point2D>();
-    private ArrayList<Object> userData = new ArrayList<Object>();
+    private Map<Body, Point2D> pointFind = new HashMap<Body, Point2D>();
+    private Map<Point2D, Body> bodyFind = new HashMap<Point2D, Body>();
+    
 }
