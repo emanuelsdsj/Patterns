@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
+package bridge;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public interface IAbstractFactory {
+public class Linux implements IPlatform {
+
+    @Override
+    public void drawLine() {
+        System.out.println("Desenhando no Linux");
+    }
     
-    public IConsole createConsole();
-    public IControle createControle();    
 }

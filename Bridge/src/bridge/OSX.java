@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FlexibleFactory;
-
-import Interfaces.IPrototype;
+package bridge;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public class Pneu implements IPrototype {
+public class OSX implements IPlatform {
 
     @Override
-    public IPrototype clone() {
-        return new Pneu();
+    public void drawLine() {
+        System.out.println("Desenhando no OSX");
     }
     
 }

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
+package bridge;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public interface ICreator {
+public interface IPlatform {
     
-    public IGame createGame();
+    public void drawLine();
     
 }

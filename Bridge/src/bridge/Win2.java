@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package videoGameXbox;
-
-import Interfaces.IConsole;
+package bridge;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public class ConsoleXbox implements IConsole {
+public class Win2 extends WindowAbstract {
 
     @Override
-    public void Ligar() {
-        System.out.println("Ligando console do xbox");
-    }  
+    public void show() {
+        this.platform.drawLine();
+        System.out.println("Win2 visível");
+    }
+    
 }
