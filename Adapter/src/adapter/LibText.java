@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FlexibleFactory;
-
-import Interfaces.IPrototype;
+package adapter;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public class Pneu implements IPrototype {
-
-    @Override
-    public IPrototype clone() {
-        return new Pneu();
+public class LibText {
+    
+    public void showDesenhar() {
+        System.out.println("Desenhando texto pela lib");
     }
     
 }

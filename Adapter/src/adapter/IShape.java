@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
+package adapter;
 
 /**
  *
- * @author aluno
+ * @author emanuelssj
  */
-public interface ICreator {
+public interface IShape {
     
-    public IGame createGame();
+    public void desenhar();
     
 }
