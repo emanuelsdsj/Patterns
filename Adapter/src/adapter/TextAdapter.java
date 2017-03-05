@@ -10,7 +10,7 @@ package adapter;
  * @author emanuelssj
  */
 public class TextAdapter implements IShape {
-    public LibText libtext;
+    private LibText libtext;
     
     public TextAdapter() {
         libtext = new LibText();
