@@ -134,7 +134,6 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 
     public void bodiesCreated(ArrayList<Point2D> bodies) {
         m_bodyRect.clear();
-        System.out.println("xd");
         Dimension size = getSize();
         for (int i = 0; i < bodies.size(); i++) {
             Rectangle rectangle = new Rectangle();

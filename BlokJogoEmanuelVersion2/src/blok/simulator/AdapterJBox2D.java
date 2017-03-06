@@ -43,21 +43,29 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
 
     @Override
     public void run() {
-        m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
 
-        //if(m_bodies.size() == points.size() && m_bodies.size() != 0 && points.size() != 0) {
-        //    for(int i = 0; i < m_bodies.size(); i++) {
-        //       points.get(i).setLocation(bodyFind.get(points.get(i)).getPosition().x, bodyFind.get(points.get(i)).getPosition().y);
-         //   }
-        //}
-        
+                m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
+//        //if(m_bodies.size() == points.size() && m_bodies.size() != 0 && points.size() != 0) {
+            for(int j = 0; j > 0; j++) {
+                for(int i = 0; i < m_bodies.size(); i++) {
+                   points.get(i).setLocation(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y);
+                   m_mainPanel.bodiesUpdated(points);
+//                   if(m_bodies.size() - 1 == i)
+//                       m_mainPanel.bodiesUpdated2(points.get(i), "dasds");
+//                   else
+//                      m_mainPanel.bodiesUpdated2(points.get(i), "");   
+                }
+            }
+//        //}
+//        for (Body b = m_world.getBodyList(); b != null; b = b.getNext()) {
+//            point.get(i).setLocation(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y)
+//        }
         System.out.println("Size =" + m_world.getBodyCount());
-        m_mainPanel.bodiesUpdated(points); 
-       
+        
     }
 
     public void init() {
-        m_world = new World(new Vec2(0, -10f), true);
+        m_world = new World(new Vec2(0, -10f));
         m_world.setContactListener(this);
         m_bodies.clear();
         points.clear();
