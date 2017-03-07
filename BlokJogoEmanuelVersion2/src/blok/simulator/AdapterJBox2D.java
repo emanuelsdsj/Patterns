@@ -6,7 +6,10 @@ package blok.simulator;
  */
 
 
-import blok.gui.MainPanel;
+import blok.gui.GameAbstract;
+import blok.gui.GameAbstract.State;
+import blok.gui.SquareGame;
+import blok.gui.TriangleGame;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,11 +32,11 @@ import org.jbox2d.dynamics.contacts.Contact;
  */
 public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
 
-    public AdapterJBox2D(MainPanel mainPanel) {
+    public AdapterJBox2D(GameAbstract mainPanel) {
         m_mainPanel = mainPanel;
     }
     
-    public void start() {
+    public void start() {   
         m_schedulerHandle = m_scheduler.scheduleAtFixedRate(this, 0, 3, TimeUnit.MILLISECONDS);
     }
 
@@ -43,26 +46,43 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
 
     @Override
     public void run() {
-
-                m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
+        m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
 //        //if(m_bodies.size() == points.size() && m_bodies.size() != 0 && points.size() != 0) {
-            for(int j = 0; j > 0; j++) {
-                for(int i = 0; i < m_bodies.size(); i++) {
-                   points.get(i).setLocation(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y);
-                   m_mainPanel.bodiesUpdated(points);
-//                   if(m_bodies.size() - 1 == i)
-//                       m_mainPanel.bodiesUpdated2(points.get(i), "dasds");
-//                   else
-//                      m_mainPanel.bodiesUpdated2(points.get(i), "");   
-                }
-            }
+//            for(int j = 0; j > 0; j++) {
+//                for(int i = 0; i < m_bodies.size(); i++) {
+//                   points.get(i).setLocation(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y);
+//                   m_mainPanel.bodiesUpdated(points);  
+//                }
+//            }
 //        //}
 //        for (Body b = m_world.getBodyList(); b != null; b = b.getNext()) {
 //            point.get(i).setLocation(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y)
 //        }
+//        ArrayList<Point2D> points2 = new ArrayList<Point2D>();
+//        points2.clear();
+//        for(int i = 0; i < m_bodies.size(); i++) {
+//            points2.add(new Point2D.Double(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y));
+//        }
+            
+        //updatePoints();
         System.out.println("Size =" + m_world.getBodyCount());
+
+        for(int i = 0; i < m_bodies.size(); i++) {
+            points.get(i).setLocation(m_bodies.get(i).getPosition().x, m_bodies.get(i).getPosition().y);
+            m_mainPanel.bodiesUpdated(points);  
+        }
+
+
+        //m_mainPanel.bodiesUpdated(points); 
         
     }
+    
+    @Override
+    public void updatePoints() {
+        for(int i = 0; i < m_bodies.size(); i++) {
+           pointFind.get(m_bodies.get(i)).setLocation(bodyFind.get(points.get(i)).getPosition().x, bodyFind.get(points.get(i)).getPosition().y); 
+        } 
+     }
 
     public void init() {
         m_world = new World(new Vec2(0, -10f));
@@ -129,17 +149,10 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
                 break;
             }
         }
-        
-        //for(int i = 0 ; i< m_bodies.size();i++) {
-        //   if(bodyPoint.getX() == m_bodies.get(i).getPosition().x && bodyPoint.getY() == m_bodies.get(i).getPosition().y) {
-                 
-        //        break;
-        //   }
-        //}
         if (points.size() == 2)
         {
             stop();
-            m_mainPanel.setState(MainPanel.State.YOUWON);
+            m_mainPanel.setState(State.YOUWON);
         }
     }
 
@@ -149,7 +162,7 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
             (contact.getFixtureB().getBody() == m_ground && contact.getFixtureA().getBody() == m_player))
         {
             stop();
-            m_mainPanel.setState(MainPanel.State.YOULOST);
+            m_mainPanel.setState(State.YOULOST);
         }
     }
 
@@ -170,7 +183,7 @@ public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
     private static int B2_VELOCITY_ITERATIONS = 8;
     private static int B2_POSITION_ITERATIONS = 4;
 
-    private MainPanel m_mainPanel;
+    private GameAbstract m_mainPanel;
     
     private final ScheduledExecutorService m_scheduler = Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> m_schedulerHandle = null;

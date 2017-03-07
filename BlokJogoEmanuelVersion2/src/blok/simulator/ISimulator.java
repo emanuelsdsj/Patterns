@@ -19,4 +19,5 @@ public interface ISimulator {
     public void run();
     public void stop();
     public void start();
+    public void updatePoints();
 }

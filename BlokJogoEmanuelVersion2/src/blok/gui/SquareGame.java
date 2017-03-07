@@ -29,12 +29,12 @@ import javax.swing.ImageIcon;
  *
  * @author sandroandrade
  */
-public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyListener {
+public class SquareGame extends GameAbstract implements MouseListener, KeyListener {
 
     /**
      * Creates new form MainPanel
      */
-    public MainPanel() {
+    public SquareGame() {
         initComponents();
         setFocusable(true);
         addMouseListener(this);
@@ -54,31 +54,28 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
                 clip.open(ais);
                 clip.loop(times);
             } catch (MalformedURLException ex) {
-                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SquareGame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SquareGame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }})).start();
-    }
-    
-    public void setSimulator(ISimulator simulator) {
-        m_simulator = simulator;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Point2D toBeRemoved = null;
-        for (Point2D body : m_bodyRect.keySet()) {
-            java.awt.Rectangle rect = m_bodyRect.get(body);
+        int toBeRemoved = -1;
+        for (int i = 0; i < m_bodyRect2.size(); i++) {
+            java.awt.Rectangle rect = m_bodyRect2.get(i);
             if (rect.contains(e.getPoint()) && m_state == State.RUNNING && rect != m_player) {
-                m_simulator.removeBody(body);
-                toBeRemoved = body;
-                m_bodyRect.remove(toBeRemoved);
+                Point2D point = new Point2D.Double(m_bodyRect2.get(i).getX(), m_bodyRect2.get(i).getY());
+                m_simulator.removeBody(point);
+                toBeRemoved = i;
+                m_bodyRect2.remove(i);
                 break;
             }
         }
-        if (toBeRemoved != null)
-            m_bodyRect.remove(toBeRemoved);
+        if (toBeRemoved != -1)
+            m_bodyRect2.remove(toBeRemoved);
     }
 
     @Override
@@ -123,18 +120,19 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         for (int i = 0; i < bodies.size(); i++) {
             if (bodies.size() - 1 == i)
                 // Player
-                m_bodyRect.get(bodies.get(i)).setLocation(size.width/2-28 + (int) bodies.get(i).getX(), size.height/2-28 - (int) bodies.get(i).getY());
+                m_bodyRect2.get(i).setLocation(size.width/2-28 + (int) bodies.get(i).getX(), size.height/2-28 - (int) bodies.get(i).getY());
             else
                 // Block
-                m_bodyRect.get(bodies.get(i)).setLocation(size.width/2-14 + (int) bodies.get(i).getX(), size.height/2-14 - (int) bodies.get(i).getY());
+                m_bodyRect2.get(i).setLocation(size.width/2-14 + (int) bodies.get(i).getX(), size.height/2-14 - (int) bodies.get(i).getY());
         }
 
         repaint();
     }
 
     public void bodiesCreated(ArrayList<Point2D> bodies) {
-        m_bodyRect.clear();
+        m_bodyRect2.clear();
         Dimension size = getSize();
+        Point2D point = new Point2D.Double();
         for (int i = 0; i < bodies.size(); i++) {
             Rectangle rectangle = new Rectangle();
             if (bodies.size() - 1 == i)
@@ -150,7 +148,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
                 rectangle.setRect(-14, -14, 28, 28);
                 rectangle.setLocation(size.width/2-14 + (int) bodies.get(i).getX(), size.height/2-14 - (int) bodies.get(i).getY());
             }
-            m_bodyRect.put(bodies.get(i), rectangle);
+            m_bodyRect2.add(rectangle);
+            //m_bodyRect.put(bodies.get(i), rectangle);
         }
         repaint();
     }
@@ -164,7 +163,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         g2d.drawImage(new ImageIcon("images/background.png").getImage(), 0, 0, null);
         g2d.drawImage(new ImageIcon("images/ground.png").getImage(), size.width/2-450, size.height/2-10+260, null);
 
-        for (Rectangle rect : m_bodyRect.values()) {
+        for (Rectangle rect : m_bodyRect2) {
             if (rect != m_player) {
                 // Block
                 try {
@@ -256,10 +255,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    private ISimulator m_simulator;
-    private HashMap<Point2D, Rectangle> m_bodyRect = new HashMap<Point2D, Rectangle>();
+    //private HashMap<Point2D, Rectangle> m_bodyRect = new HashMap<Point2D, Rectangle>();
+    private ArrayList<Rectangle> m_bodyRect2 = new ArrayList<Rectangle>();
     private Rectangle m_player;
-    public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
-    private State m_state = State.INITIAL;
     private String m_playerImage;
 }
