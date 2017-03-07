@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +69,6 @@ public class SquareGame extends GameAbstract implements MouseListener, KeyListen
                 Point2D point = new Point2D.Double(m_bodyRect2.get(i).getX(), m_bodyRect2.get(i).getY());
                 m_simulator.removeBody(point);
                 toBeRemoved = i;
-                m_bodyRect2.remove(i);
                 break;
             }
         }
@@ -115,7 +113,7 @@ public class SquareGame extends GameAbstract implements MouseListener, KeyListen
         }
     }
     
-    public void bodiesUpdated(ArrayList<Point2D> bodies) {
+    public void bodiesUpdated(ArrayList<Point> bodies) {
         Dimension size = getSize();
         for (int i = 0; i < bodies.size(); i++) {
             if (bodies.size() - 1 == i)
@@ -129,10 +127,9 @@ public class SquareGame extends GameAbstract implements MouseListener, KeyListen
         repaint();
     }
 
-    public void bodiesCreated(ArrayList<Point2D> bodies) {
+    public void bodiesCreated(ArrayList<Point> bodies) {
         m_bodyRect2.clear();
         Dimension size = getSize();
-        Point2D point = new Point2D.Double();
         for (int i = 0; i < bodies.size(); i++) {
             Rectangle rectangle = new Rectangle();
             if (bodies.size() - 1 == i)
