@@ -160,7 +160,7 @@ public class LavaGame extends GameAbstract implements MouseListener, KeyListener
         Dimension size = getSize();
         
         g2d.drawImage(new ImageIcon("images/backgroundLava.png").getImage(), 0, 0, null);
-        g2d.drawImage(new ImageIcon("images/lava.png").getImage(), size.width/2-350, size.height/2-10+260, null);
+        g2d.drawImage(new ImageIcon("images/lava.png").getImage(), size.width/2-350, size.height/2-10+230, null);
 
         for (Rectangle rect : m_bodyRect2) {
             if (rect != m_player) {

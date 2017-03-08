@@ -21,7 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         Dimension size = new Dimension(900, 600);
 
-        GameAbstract mainPanel = new BlokGame();
+        GameAbstract mainPanel = new LavaGame();
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);
