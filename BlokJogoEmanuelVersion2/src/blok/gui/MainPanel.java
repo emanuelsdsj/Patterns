@@ -61,18 +61,19 @@ public class MainPanel extends GameAbstract implements MouseListener, KeyListene
     @Override
     public void mouseReleased(MouseEvent e) {
         Rectangle toBeRemoved = null;
-        boolean status = false;
+        int position = -1;
         for (int i = 0; i < m_bodyRect2.size(); i++) {
             java.awt.Rectangle rect = m_bodyRect2.get(i);
             if (rect.contains(e.getPoint()) && m_state == State.RUNNING && rect != m_player) {
                 Point2D point = new Point2D.Double(m_bodyRect2.get(i).getCenterX(), m_bodyRect2.get(i).getCenterY());
-                status = m_simulator.removeBody(points.get(i));
+                m_simulator.removeBody(points.get(i));
                 toBeRemoved = m_bodyRect2.get(i);
-                if(status == true)
-                    m_bodyRect2.remove(toBeRemoved);
+                position = i;
                 break;
             }
         }
+        if(position != -1)
+            m_bodyRect2.remove(position);
     }
 
     @Override

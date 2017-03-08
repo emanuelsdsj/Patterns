@@ -15,9 +15,8 @@ import java.awt.geom.Point2D;
  */
 public interface ISimulator {
     public void init();
-    public boolean removeBody(Point2D body);
+    public void removeBody(Point2D body);
     public void run();
     public void stop();
     public void start();
-    public void updatePoints();
 }
