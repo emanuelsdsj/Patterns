@@ -19,9 +19,9 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
-        Dimension size = new Dimension(1000, 600);
+        Dimension size = new Dimension(900, 600);
 
-        MainPanel mainPanel = new MainPanel();
+        GameAbstract mainPanel = new BlokGame();
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);

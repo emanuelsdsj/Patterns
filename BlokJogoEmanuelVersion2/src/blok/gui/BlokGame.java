@@ -26,12 +26,12 @@ import javax.swing.ImageIcon;
  *
  * @author sandroandrade
  */
-public class MainPanel extends GameAbstract implements MouseListener, KeyListener {
+public class BlokGame extends GameAbstract implements MouseListener, KeyListener {
 
     /**
      * Creates new form MainPanel
      */
-    public MainPanel() {
+    public BlokGame() {
         initComponents();
         setFocusable(true);
         addMouseListener(this);
@@ -51,9 +51,9 @@ public class MainPanel extends GameAbstract implements MouseListener, KeyListene
                 clip.open(ais);
                 clip.loop(times);
             } catch (MalformedURLException ex) {
-                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BlokGame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BlokGame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }})).start();
     }

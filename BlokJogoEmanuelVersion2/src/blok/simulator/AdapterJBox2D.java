@@ -8,7 +8,7 @@ package blok.simulator;
 
 import blok.gui.GameAbstract;
 import blok.gui.GameAbstract.State;
-import blok.gui.MainPanel;
+import blok.gui.BlokGame;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ import org.jbox2d.dynamics.contacts.Contact;
  */
 public class AdapterJBox2D implements Runnable, ContactListener, ISimulator {
 
-    public AdapterJBox2D(MainPanel mainPanel) {
+    public AdapterJBox2D(GameAbstract mainPanel) {
         m_mainPanel = mainPanel;
     }
     
