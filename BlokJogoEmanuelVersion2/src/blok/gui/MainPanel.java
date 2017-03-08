@@ -15,26 +15,23 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
-//import org.jbox2d.common.Vec2;
-//import org.jbox2d.dynamics.Body;
 
 /**
  *
  * @author sandroandrade
  */
-public class TriangleGame extends GameAbstract implements MouseListener, KeyListener {
+public class MainPanel extends GameAbstract implements MouseListener, KeyListener {
 
     /**
      * Creates new form MainPanel
      */
-    public TriangleGame() {
+    public MainPanel() {
         initComponents();
         setFocusable(true);
         addMouseListener(this);
@@ -54,31 +51,28 @@ public class TriangleGame extends GameAbstract implements MouseListener, KeyList
                 clip.open(ais);
                 clip.loop(times);
             } catch (MalformedURLException ex) {
-                Logger.getLogger(TriangleGame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-                Logger.getLogger(TriangleGame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }})).start();
-    }
-    
-    public void setSimulator(ISimulator simulator) {
-        m_simulator = simulator;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Point2D toBeRemoved = null;
-        for (Point2D body : m_bodyRect.keySet()) {
-            java.awt.Rectangle rect = m_bodyRect.get(body);
+        Rectangle toBeRemoved = null;
+        boolean status = false;
+        for (int i = 0; i < m_bodyRect2.size(); i++) {
+            java.awt.Rectangle rect = m_bodyRect2.get(i);
             if (rect.contains(e.getPoint()) && m_state == State.RUNNING && rect != m_player) {
-                m_simulator.removeBody(body);
-                toBeRemoved = body;
-                //m_bodyRect.remove(toBeRemoved);
+                Point2D point = new Point2D.Double(m_bodyRect2.get(i).getCenterX(), m_bodyRect2.get(i).getCenterY());
+                status = m_simulator.removeBody(points.get(i));
+                toBeRemoved = m_bodyRect2.get(i);
+                if(status == true)
+                    m_bodyRect2.remove(toBeRemoved);
                 break;
             }
         }
-        if (toBeRemoved != null)
-            m_bodyRect.remove(toBeRemoved);
     }
 
     @Override
@@ -120,20 +114,22 @@ public class TriangleGame extends GameAbstract implements MouseListener, KeyList
     
     public void bodiesUpdated(ArrayList<Point2D> bodies) {
         Dimension size = getSize();
+        points = bodies;
         for (int i = 0; i < bodies.size(); i++) {
             if (bodies.size() - 1 == i)
                 // Player
-                m_bodyRect.get(bodies.get(i)).setLocation(size.width/2-28 + (int) bodies.get(i).getX(), size.height/2-28 - (int) bodies.get(i).getY());
-            else 
+                m_bodyRect2.get(i).setLocation(size.width/2-28 + (int) bodies.get(i).getX(), size.height/2-28 - (int) bodies.get(i).getY());
+            else
                 // Block
-                m_bodyRect.get(bodies.get(i)).setLocation(size.width/2-14 + (int) bodies.get(i).getX(), size.height/2-14 - (int) bodies.get(i).getY());
+                m_bodyRect2.get(i).setLocation(size.width/2-14 + (int) bodies.get(i).getX(), size.height/2-14 - (int) bodies.get(i).getY());
         }
 
         repaint();
     }
 
     public void bodiesCreated(ArrayList<Point2D> bodies) {
-        m_bodyRect.clear();
+        m_bodyRect2.clear();
+        points = bodies;
         Dimension size = getSize();
         for (int i = 0; i < bodies.size(); i++) {
             Rectangle rectangle = new Rectangle();
@@ -150,7 +146,8 @@ public class TriangleGame extends GameAbstract implements MouseListener, KeyList
                 rectangle.setRect(-14, -14, 28, 28);
                 rectangle.setLocation(size.width/2-14 + (int) bodies.get(i).getX(), size.height/2-14 - (int) bodies.get(i).getY());
             }
-            m_bodyRect.put(bodies.get(i), rectangle);
+            m_bodyRect2.add(rectangle);
+            //m_bodyRect.put(bodies.get(i), rectangle);
         }
         repaint();
     }
@@ -164,11 +161,11 @@ public class TriangleGame extends GameAbstract implements MouseListener, KeyList
         g2d.drawImage(new ImageIcon("images/background.png").getImage(), 0, 0, null);
         g2d.drawImage(new ImageIcon("images/ground.png").getImage(), size.width/2-450, size.height/2-10+260, null);
 
-        for (Rectangle rect : m_bodyRect.values()) {
+        for (Rectangle rect : m_bodyRect2) {
             if (rect != m_player) {
                 // Block
                 try {
-                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File("images/triangle.png")), rect);
+                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File("images/brick.png")), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
                     Logger.getLogger(ISimulator.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,7 +253,8 @@ public class TriangleGame extends GameAbstract implements MouseListener, KeyList
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    private HashMap<Point2D, Rectangle> m_bodyRect = new HashMap<Point2D, Rectangle>();
+    private ArrayList<Rectangle> m_bodyRect2 = new ArrayList<Rectangle>();
     private Rectangle m_player;
     private String m_playerImage;
+    private ArrayList<Point2D> points = new ArrayList<Point2D>();
 }

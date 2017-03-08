@@ -6,7 +6,7 @@
 package blok.gui;
 
 import blok.simulator.ISimulator;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -18,9 +18,9 @@ public abstract class GameAbstract extends javax.swing.JPanel {
     public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
     protected State m_state = State.INITIAL;
     
-    public abstract void bodiesCreated(ArrayList<Point> bodies); 
+    public abstract void bodiesCreated(ArrayList<Point2D> bodies); 
     public abstract void setState(State state);
-    public abstract void bodiesUpdated(ArrayList<Point> bodies);
+    public abstract void bodiesUpdated(ArrayList<Point2D> bodies);
     
     public void setSimulator(ISimulator simulator) {
         m_simulator = simulator;
