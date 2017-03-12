@@ -13,15 +13,16 @@ import java.awt.Dimension;
  * @author sandroandrade
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    private GameAbstract game; 
+    private ISimulator simulator;
     /**
      * Creates new form MainWindow
      */
-    public MainWindow() {
+    public MainWindow(GameAbstract game, ISimulator simulator) {
         initComponents();
         Dimension size = new Dimension(900, 600);
 
-        GameAbstract mainPanel = new LavaGame();
+        GameAbstract mainPanel = game;
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);
@@ -31,10 +32,19 @@ public class MainWindow extends javax.swing.JFrame {
         setResizable(false);
         pack();
         
-        ISimulator simulator = new AdapterJBox2D(mainPanel);
+        ISimulator simulator2 = simulator;
         mainPanel.setSimulator(simulator);
         simulator.init();
         //simulator.start();
+        this.game = game;
+        this.simulator = simulator;
+    }
+    
+    public void resetar() {
+        this.simulator.stop();
+        this.game.m_simulator.stop();
+        this.simulator = null;
+        this.game = null;
     }
 
     /**
@@ -46,27 +56,12 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Help");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

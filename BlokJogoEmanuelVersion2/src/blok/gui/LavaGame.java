@@ -37,26 +37,26 @@ public class LavaGame extends GameAbstract implements MouseListener, KeyListener
         addMouseListener(this);
         addKeyListener(this);
         m_playerImage = "images/player" + Math.abs((new Random()).nextInt()%9) + ".png";
-        playWav("sounds/background.wav", -1);
+        //playWav("sounds/background.wav", -1);
     }
 
-    final void playWav(final String wavFile, final int times) {
-        (new Thread(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                System.out.println(AudioSystem.getMixerInfo()[1].getName());
-                Clip clip = AudioSystem.getClip();
-                AudioInputStream ais = AudioSystem.getAudioInputStream(new File(wavFile));
-                clip.open(ais);
-                clip.loop(times);
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(LavaGame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-                Logger.getLogger(LavaGame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }})).start();
-    }
+//    final void playWav(final String wavFile, final int times) {
+//        (new Thread(new Runnable() {
+//        @Override
+//        public void run() {
+//            try {
+//                System.out.println(AudioSystem.getMixerInfo()[1].getName());
+//                Clip clip = AudioSystem.getClip();
+//                AudioInputStream ais = AudioSystem.getAudioInputStream(new File(wavFile));
+//                clip.open(ais);
+//                clip.loop(times);
+//            } catch (MalformedURLException ex) {
+//                Logger.getLogger(LavaGame.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+//                Logger.getLogger(LavaGame.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }})).start();
+//    }
 
     @Override
     public void mouseReleased(MouseEvent e) {
