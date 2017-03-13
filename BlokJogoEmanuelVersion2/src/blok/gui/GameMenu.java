@@ -62,7 +62,7 @@ public class GameMenu extends javax.swing.JFrame {
 
         jLabel2.setText("Game");
 
-        jLabel3.setText("Bridge");
+        jLabel3.setText("Menu");
 
         JBoxCheck.setText("JBox2D");
         JBoxCheck.addActionListener(new java.awt.event.ActionListener() {
