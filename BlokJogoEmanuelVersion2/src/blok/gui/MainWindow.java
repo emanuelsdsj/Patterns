@@ -4,7 +4,6 @@
  */
 package blok.gui;
 
-import blok.simulator.AdapterJBox2D;
 import blok.simulator.ISimulator;
 import java.awt.Dimension;
 
@@ -41,8 +40,10 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     public void resetar() {
-        this.simulator.stop();
-        this.game.m_simulator.stop();
+        if(this.game.m_state == GameAbstract.State.RUNNING) {
+            this.game.m_simulator.stop();
+            this.simulator.stop();
+        }
         this.simulator = null;
         this.game = null;
     }
