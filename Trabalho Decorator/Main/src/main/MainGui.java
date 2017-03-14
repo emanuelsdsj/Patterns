@@ -33,6 +33,7 @@ public class MainGui extends javax.swing.JFrame {
     private void refreshPlugins() {
         int op;
         String text = "";
+        vectorDecorators = new Vector<Decorator>();
         this.textArea.setText(text);
         this.vectorAdded = new Vector<String>();
         this.listDecorator.setListData(new Vector<String>());

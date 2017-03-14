@@ -23,7 +23,7 @@ public class CaldaChocolate extends Decorator implements IComponent{
 
     @Override
     public String fazer() { 
-        return this.decorated.fazer() + " " + "Colocando calda de chocolate";
+        return this.decorated.fazer() + "Adicionando calda de chocolate \n";
     }
     
 }

@@ -24,7 +24,7 @@ public class ChocolateGranulado extends Decorator implements IComponent {
 
     @Override
     public String fazer() {
-        return this.decorated.fazer() + " " + "Colocando chocolate granulado";
+        return this.decorated.fazer() + "Adicionando chocolate granulado \n";
     }
     
 }

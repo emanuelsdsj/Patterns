@@ -15,7 +15,7 @@ public class Bolo implements IComponent {
 
     @Override
     public String fazer() {
-        return "Fazendo bolo";
+        return "Fazendo bolo \n";
     }
     
 }
