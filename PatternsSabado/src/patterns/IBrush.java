@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package composite;
+package patterns;
+
+import java.awt.Graphics2D;
+import java.awt.Shape;
 
 /**
  *
- * @author emanuelssj
+ * @author aluno
  */
-public interface IComponent {
-    
-    public void girar();
-    
+public interface IBrush {
+    public abstract void fill(Graphics2D g2d, Shape shape);
 }
