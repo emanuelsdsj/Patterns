@@ -23,7 +23,7 @@ public class Canela extends Decorator implements IComponent {
 
     @Override
     public String fazer() {
-        return "Colocando canela" + "\n" +this.decorated.fazer();
+        return "Adicionando canela" + "\n" +this.decorated.fazer();
     }
     
 }
