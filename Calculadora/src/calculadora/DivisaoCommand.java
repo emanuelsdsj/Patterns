@@ -12,10 +12,10 @@ import interfaces.ICommand;
  * @author aluno
  */
 public class DivisaoCommand implements ICommand {
-    private Calculadora2 receiver;
+    private Calculadora receiver;
     private double numero;
     
-    public DivisaoCommand(double numero, Calculadora2 receiver) {
+    public DivisaoCommand(double numero, Calculadora receiver) {
         this.numero = numero;
         this.receiver = receiver;
     }

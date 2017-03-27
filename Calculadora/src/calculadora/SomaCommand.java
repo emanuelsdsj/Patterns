@@ -12,10 +12,10 @@ import interfaces.ICommand;
  * @author aluno
  */
 public class SomaCommand implements ICommand {
-    private Calculadora2 receiver;
+    private Calculadora receiver;
     private double numero;
     
-    public SomaCommand(double numero, Calculadora2 receiver) {
+    public SomaCommand(double numero, Calculadora receiver) {
         this.numero = numero;
         this.receiver = receiver;
     }

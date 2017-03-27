@@ -12,10 +12,10 @@ import interfaces.ICommand;
  * @author aluno
  */
 public class SubtracaoCommand implements ICommand {
-     private Calculadora2 receiver;
+     private Calculadora receiver;
     private double numero;
     
-    public SubtracaoCommand(double numero, Calculadora2 receiver) {
+    public SubtracaoCommand(double numero, Calculadora receiver) {
         this.numero = numero;
         this.receiver = receiver;
     }
