@@ -27,7 +27,9 @@ public class PanelOriginal extends javax.swing.JPanel {
         this.selectedShape = selectedShape;
     }
     
+    @Override
     public void paintComponent(Graphics g) {
+        System.out.println("Chamou");
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         RenderingHints rh = new RenderingHints(
