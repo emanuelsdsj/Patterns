@@ -15,13 +15,12 @@ public class MainFrameOriginal extends javax.swing.JFrame {
     private IBrush selectedBrush = null;
     private Shape selectedShape = null;
     private PanelOriginal mainframe;
-    private MyPanel jPanel1;
     /**
      * Creates new form MainFrameOriginal
      */
     public MainFrameOriginal() {
         initComponents();
-        jPanel1 = new MyPanel(selectedBrush, selectedShape);
+        //mainframe = new PanelOriginal(selectedBrush, selectedShape);
         Shape ellipse = new Ellipse();
         Shape rect = new Rectangle();
         IBrush solidBrush = new SolidBrush();
@@ -35,14 +34,36 @@ public class MainFrameOriginal extends javax.swing.JFrame {
     
     public void paint() {
         if(mainframe == null) {
-            mainframe = new PanelOriginal(selectedBrush, selectedShape);
-            getContentPane().add(mainframe);
-            mainframe.setVisible(true);
+            this.mainframe = new PanelOriginal(selectedBrush, selectedShape);
+//            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(this.mainframe);
+//            this.mainframe.setLayout(jPanel1Layout);
+//            jPanel1Layout.setHorizontalGroup(
+//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//                .addGap(0, 400, Short.MAX_VALUE)
+//            );
+//            jPanel1Layout.setVerticalGroup(
+//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//                .addGap(0, 300, Short.MAX_VALUE)
+//            );
+            this.getContentPane().add(this.mainframe);
+            this.mainframe.setVisible(true);
+            //this.mainframe.paintComponent(this.getGraphics());
         } else {
-            getContentPane().remove(mainframe);
-            mainframe = new PanelOriginal(selectedBrush, selectedShape);
-            getContentPane().add(mainframe);
+            this.getContentPane().remove(this.mainframe);
+//            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(this.mainframe);
+//            this.mainframe.setLayout(jPanel1Layout);
+//            jPanel1Layout.setHorizontalGroup(
+//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//                .addGap(0, 400, Short.MAX_VALUE)
+//            );
+//            jPanel1Layout.setVerticalGroup(
+//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//                .addGap(0, 300, Short.MAX_VALUE)
+//            );
+            this.mainframe = new PanelOriginal(selectedBrush, selectedShape);
+            this.getContentPane().add(mainframe);
             mainframe.setVisible(true);
+            //this.mainframe.paintComponent(this.getGraphics());
         }
     }   
 
@@ -75,7 +96,7 @@ public class MainFrameOriginal extends javax.swing.JFrame {
             }
         });
 
-        BotaoBridge.setText("jButton1");
+        BotaoBridge.setText("Desenhar");
         BotaoBridge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoBridgeActionPerformed(evt);
@@ -93,7 +114,7 @@ public class MainFrameOriginal extends javax.swing.JFrame {
                 .addComponent(ImplementationBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(314, Short.MAX_VALUE)
+                .addContainerGap(308, Short.MAX_VALUE)
                 .addComponent(BotaoBridge)
                 .addGap(302, 302, 302))
         );
@@ -104,7 +125,7 @@ public class MainFrameOriginal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AbstractBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ImplementationBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 302, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
                 .addComponent(BotaoBridge)
                 .addContainerGap())
         );

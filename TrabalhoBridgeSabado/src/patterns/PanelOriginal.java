@@ -8,23 +8,24 @@ package patterns;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.JPanel;
 
 /**
  *
  * @author aluno
  */
-public class PanelOriginal extends javax.swing.JPanel {
-    IBrush selectedBrush = null;
-    Shape selectedShape = null;
+public class PanelOriginal extends JPanel {
+    private IBrush selectedBrush = null;
+    private Shape selectedShape = null;
     /**
      * Creates new form Panel
      * @param selectedBrush
      * @param selectedShape
      */
     public PanelOriginal(IBrush selectedBrush, Shape selectedShape) {
-        initComponents();
         this.selectedBrush = selectedBrush;
         this.selectedShape = selectedShape;
+        initComponents();
     }
     
     @Override
@@ -32,14 +33,15 @@ public class PanelOriginal extends javax.swing.JPanel {
         System.out.println("Chamou");
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
         RenderingHints rh = new RenderingHints(
-           RenderingHints.KEY_ANTIALIASING,
-           RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         rh.put(RenderingHints.KEY_RENDERING,
-              RenderingHints.VALUE_RENDER_QUALITY);
+               RenderingHints.VALUE_RENDER_QUALITY);
 
-        g2d.setRenderingHints(rh); 
+        g2d.setRenderingHints(rh);
         selectedShape.setBrush(selectedBrush);
         selectedShape.draw(300, 50, 200, 100, g2d);
     }
@@ -57,11 +59,11 @@ public class PanelOriginal extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 699, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

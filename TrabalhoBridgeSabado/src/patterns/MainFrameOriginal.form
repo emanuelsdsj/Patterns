@@ -31,7 +31,7 @@
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="314" max="32767" attributes="0"/>
+              <EmptySpace pref="308" max="32767" attributes="0"/>
               <Component id="BotaoBridge" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
           </Group>
@@ -45,7 +45,7 @@
                   <Component id="AbstractBridge" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ImplementationBridge" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="302" max="32767" attributes="0"/>
+              <EmptySpace pref="278" max="32767" attributes="0"/>
               <Component id="BotaoBridge" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -81,7 +81,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="BotaoBridge">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Desenhar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoBridgeActionPerformed"/>
