@@ -3,67 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patterns;
+package main;
 
-import retirado.MyPanel;
+import patterns.Ellipse;
+import patterns.IBrush;
+import patterns.MainFrame;
+import patterns.Rectangle;
+import patterns.Shape;
+import patterns.SolidBrush;
+import patterns.TextureBrush;
+
 
 /**
  *
  * @author aluno
  */
-public class MainFrameOriginal extends javax.swing.JFrame {
+public class MainFrameBridge extends javax.swing.JFrame {
     private IBrush selectedBrush = null;
     private Shape selectedShape = null;
-    private PanelOriginal mainframe;
+    private MainFrame mainframe;
     /**
      * Creates new form MainFrameOriginal
      */
-    public MainFrameOriginal() {
+    public MainFrameBridge() {
         initComponents();
-        //mainframe = new PanelOriginal(selectedBrush, selectedShape);
         Shape ellipse = new Ellipse();
         Shape rect = new Rectangle();
         IBrush solidBrush = new SolidBrush();
         IBrush textureBrush = new TextureBrush();
-        AbstractBridge.addItem(rect.toString());
-        AbstractBridge.addItem(ellipse.toString());
-        ImplementationBridge.addItem(solidBrush.toString());
-        ImplementationBridge.addItem(textureBrush.toString());
-        //getContentPane().add(mainframe);
+        AbstractBridge.addItem(solidBrush.toString());
+        AbstractBridge.addItem(textureBrush.toString());
+        ImplementationBridge.addItem(rect.toString());
+        ImplementationBridge.addItem(ellipse.toString());
+        this.selectedBrush = new SolidBrush();
+        this.selectedShape = new Rectangle();
     }
     
     public void paint() {
         if(mainframe == null) {
-            this.mainframe = new PanelOriginal(selectedBrush, selectedShape);
-//            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(this.mainframe);
-//            this.mainframe.setLayout(jPanel1Layout);
-//            jPanel1Layout.setHorizontalGroup(
-//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                .addGap(0, 400, Short.MAX_VALUE)
-//            );
-//            jPanel1Layout.setVerticalGroup(
-//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                .addGap(0, 300, Short.MAX_VALUE)
-//            );
-            this.getContentPane().add(this.mainframe);
+            this.mainframe = new MainFrame(selectedBrush, selectedShape);
             this.mainframe.setVisible(true);
-            //this.mainframe.paintComponent(this.getGraphics());
         } else {
-            this.getContentPane().remove(this.mainframe);
-//            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(this.mainframe);
-//            this.mainframe.setLayout(jPanel1Layout);
-//            jPanel1Layout.setHorizontalGroup(
-//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                .addGap(0, 400, Short.MAX_VALUE)
-//            );
-//            jPanel1Layout.setVerticalGroup(
-//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                .addGap(0, 300, Short.MAX_VALUE)
-//            );
-            this.mainframe = new PanelOriginal(selectedBrush, selectedShape);
-            this.getContentPane().add(mainframe);
+            this.mainframe.dispose();
+            this.mainframe = new MainFrame(selectedBrush, selectedShape);
             mainframe.setVisible(true);
-            //this.mainframe.paintComponent(this.getGraphics());
         }
     }   
 
@@ -81,6 +64,7 @@ public class MainFrameOriginal extends javax.swing.JFrame {
         BotaoBridge = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bridge");
 
         AbstractBridge.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
         AbstractBridge.addActionListener(new java.awt.event.ActionListener() {
@@ -107,16 +91,16 @@ public class MainFrameOriginal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(AbstractBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ImplementationBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(308, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
                 .addComponent(BotaoBridge)
-                .addGap(302, 302, 302))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,32 +109,27 @@ public class MainFrameOriginal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AbstractBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ImplementationBridge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(BotaoBridge)
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void AbstractBridgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbstractBridgeActionPerformed
-        selectedBrush = null;
-        if(selectedShape != null) {
-            if(AbstractBridge.getSelectedItem() == "SolidBrush") 
-                selectedBrush = new SolidBrush();
-             else 
-                selectedBrush = new TextureBrush();
-        }
+        if(AbstractBridge.getSelectedItem() == "SolidBrush") 
+            this.selectedBrush = new SolidBrush();
+         else 
+            this.selectedBrush = new TextureBrush();
+
     }//GEN-LAST:event_AbstractBridgeActionPerformed
 
     private void ImplementationBridgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImplementationBridgeActionPerformed
-        selectedShape = null;
-        if(selectedBrush != null) {
-            if(AbstractBridge.getSelectedItem() == "Rectangle") 
-                selectedShape = new Rectangle();
-             else 
-                selectedShape = new Ellipse();
-        }
+         if(ImplementationBridge.getSelectedItem() == "Rectangle") 
+            this.selectedShape = new Rectangle();
+         else 
+            this.selectedShape = new Ellipse();
     }//GEN-LAST:event_ImplementationBridgeActionPerformed
 
     private void BotaoBridgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBridgeActionPerformed
@@ -174,20 +153,23 @@ public class MainFrameOriginal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrameOriginal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBridge.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrameOriginal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBridge.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrameOriginal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBridge.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrameOriginal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameBridge.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrameOriginal().setVisible(true);
+                new MainFrameBridge().setVisible(true);
             }
         });
     }
