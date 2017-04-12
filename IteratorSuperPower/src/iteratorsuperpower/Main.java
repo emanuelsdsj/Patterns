@@ -16,17 +16,17 @@ import java.util.logging.Logger;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-        alunos.add(new Aluno("Leo", 20, 2.0));
-        alunos.add(new Aluno("Mauricio", 18, 1.7));
-        alunos.add(new Aluno("Ana", 20, 1.6));
-        alunos.add(new Aluno("Geovana", 19, 1.8));
-        Iterator iteratorAluno = new IteratorSuperPower((ArrayList<Object>) (Object) alunos, "idade" , "!=", 20);
+        alunos.add(new Aluno("Leo", 20, 2.0, 'M'));
+        alunos.add(new Aluno("Mauricio", 18, 1.7, 'M'));
+        alunos.add(new Aluno("Ana", 20, 1.6, 'F'));
+        alunos.add(new Aluno("Geovana", 19, 1.8, 'F'));
+        Iterator iteratorAluno = new IteratorSuperPower((ArrayList<Object>) (Object) alunos, "sexo" , "!=", "F");
         while(!iteratorAluno.isDone()) {
             Object a = null;
             try {
                 a = iteratorAluno.next();
                 if(a != null)
-                System.out.println(a.toString());
+                    System.out.println(a.toString());
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             } 

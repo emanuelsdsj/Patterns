@@ -19,13 +19,13 @@ public class IteratorSuperPower implements Iterator {
     private ArrayList<Object> lista;
     private int contador;
     private String operador;
-    private int idade;
+    private String valor;
     private Method method;
     
  
-    protected IteratorSuperPower(ArrayList<Object> lista, String method, String operador, int idade) {
+    protected IteratorSuperPower(ArrayList<Object> lista, String method, String operador, String valor) {
         this.lista = lista;
-        this.idade = idade;
+        this.valor = valor;
         this.operador = operador;
         contador = -1;
         try {
@@ -48,30 +48,30 @@ public class IteratorSuperPower implements Iterator {
         if(!isDone()) {
             if(operador.equals("==")) {
                 while(!isDone()) {
-                    if(((Integer) method.invoke(lista.get(contador))) == idade) 
+                    if(method.invoke(lista.get(contador)).toString().equals(valor)) 
                         return lista.get(contador);
-                     else if(contador < lista.size() - 1)
+                     else
                         contador++;
                 }
             } else if(operador.equals(">")) {
                 while(!isDone()) {
-                    if(((Integer) method.invoke(lista.get(contador))) > idade) 
+                    if((Double.parseDouble(method.invoke(lista.get(contador)).toString())) > Double.parseDouble(valor)) 
                         return lista.get(contador);
-                    else if(contador < lista.size() - 1)
+                    else
                         contador++;
                 }
             } else if(operador.equals("<")) {
                 while(!isDone()) {
-                    if(((Integer) method.invoke(lista.get(contador))) < idade) 
+                    if((Double.parseDouble(method.invoke(lista.get(contador)).toString())) < Double.parseDouble(valor)) 
                         return lista.get(contador);
-                     else if(contador < lista.size() - 1)
+                     else
                         contador++;
                 }
             } else if(operador.equals("!=")) {
                 while(!isDone()) {
-                    if(((Integer) method.invoke(lista.get(contador))) != idade) 
+                    if(!method.invoke(lista.get(contador)).toString().equals(valor)) 
                         return lista.get(contador);
-                     else if(contador < lista.size() - 1)
+                     else
                         contador++;
                 }
             }        
