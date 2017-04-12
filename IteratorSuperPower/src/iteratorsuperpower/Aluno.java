@@ -20,7 +20,7 @@ public class Aluno {
         this.name = name;
     }
 
-    public double getIdade() {
+    public int getIdade() {
         return idade;
     }
         

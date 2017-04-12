@@ -6,6 +6,8 @@
 package iteratorsuperpower;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,13 +20,16 @@ public class Main {
         alunos.add(new Aluno("Mauricio", 18, 1.7));
         alunos.add(new Aluno("Ana", 20, 1.6));
         alunos.add(new Aluno("Geovana", 19, 1.8));
-        Iterator iteratorAluno = new IteratorSuperPower(alunos, ">", 18);
+        Iterator iteratorAluno = new IteratorSuperPower((ArrayList<Object>) (Object) alunos, "idade" , "!=", 20);
         while(!iteratorAluno.isDone()) {
-            Object a = iteratorAluno.next();
-            if(a != null)
+            Object a = null;
+            try {
+                a = iteratorAluno.next();
+                if(a != null)
                 System.out.println(a.toString());
-        }
-            
-            
+            } catch (Exception ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }        
     }
 }

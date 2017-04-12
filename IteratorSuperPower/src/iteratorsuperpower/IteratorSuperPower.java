@@ -5,24 +5,36 @@
  */
 package iteratorsuperpower;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author aluno
  */
 public class IteratorSuperPower implements Iterator {
-    private ArrayList<Aluno> lista;
+    private ArrayList<Object> lista;
     private int contador;
     private String operador;
     private int idade;
+    private Method method;
     
  
-    protected IteratorSuperPower(ArrayList<Aluno> lista, String operador, int idade) {
+    protected IteratorSuperPower(ArrayList<Object> lista, String method, String operador, int idade) {
         this.lista = lista;
         this.idade = idade;
         this.operador = operador;
         contador = -1;
+        try {
+            method = "get" + StringUtils.capitalize(method);
+            this.method = lista.get(0).getClass().getDeclaredMethod(method);
+            this.method.getReturnType();
+        } catch (NoSuchMethodException | SecurityException ex) {
+            Logger.getLogger(IteratorSuperPower.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
  
     @Override
@@ -31,44 +43,44 @@ public class IteratorSuperPower implements Iterator {
     }
  
     @Override
-    public Object next() {
+    public Object next() throws Exception {
         contador++;
         if(!isDone()) {
             if(operador.equals("==")) {
                 while(!isDone()) {
-                    if(lista.get(contador).getIdade() == idade) 
+                    if(((Integer) method.invoke(lista.get(contador))) == idade) 
                         return lista.get(contador);
                      else if(contador < lista.size() - 1)
                         contador++;
                 }
             } else if(operador.equals(">")) {
                 while(!isDone()) {
-                    if(lista.get(contador).getIdade() > idade) 
+                    if(((Integer) method.invoke(lista.get(contador))) > idade) 
                         return lista.get(contador);
                     else if(contador < lista.size() - 1)
                         contador++;
                 }
             } else if(operador.equals("<")) {
                 while(!isDone()) {
-                    if(lista.get(contador).getIdade() < idade) 
+                    if(((Integer) method.invoke(lista.get(contador))) < idade) 
                         return lista.get(contador);
                      else if(contador < lista.size() - 1)
                         contador++;
                 }
             } else if(operador.equals("!=")) {
                 while(!isDone()) {
-                    if(lista.get(contador).getIdade() != idade) 
+                    if(((Integer) method.invoke(lista.get(contador))) != idade) 
                         return lista.get(contador);
                      else if(contador < lista.size() - 1)
                         contador++;
                 }
-            }
+            }        
         }
         return null;
     }
  
     @Override
     public boolean isDone() {
-        return contador >= lista.size() - 1;
+        return contador >= lista.size();
     }
 }

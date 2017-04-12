@@ -11,6 +11,6 @@ package iteratorsuperpower;
  */
 public interface Iterator {
     public void first();
-    public Object next();
+    public Object next() throws Exception;
     public boolean isDone();
 }
