@@ -34,9 +34,13 @@ public class Aluno implements IElement {
         this.score = score;
     }
 
+//    @Override
+//    public void accept(IVisitor visitor) {
+//        visitor.visitAluno(this);
+//    }
+    
     @Override
     public void accept(IVisitor visitor) {
-        visitor.visitAluno(this);
-    }
-    
+        visitor.visit(this);
+    }   
 }

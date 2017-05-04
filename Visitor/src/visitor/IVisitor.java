@@ -12,4 +12,5 @@ package visitor;
 public interface IVisitor {
     public abstract void visitAluno(Aluno aluno);
     public abstract void visitProfessor(Professor professor);
+    public abstract void visit(IElement element);
 }
