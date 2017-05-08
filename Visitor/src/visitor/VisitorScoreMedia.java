@@ -36,18 +36,35 @@ public class VisitorScoreMedia implements IVisitor {
     @Override
     public void visit(IElement element) {
         String methodName = "getScore";
-        Method method;
+        Method method = null;
+        boolean s = false;
         numDeAlunos++;
+        Method[] methods = element.getClass().getMethods();
+        for(Method m : methods) {
+            if(m.getName() == methodName)
+                s = true;
+        }
         try {
+        try {
+        if(s) {
             method = element.getClass().getDeclaredMethod(methodName);
             method.getReturnType();
-            try {
-                scoreAcumulado = (double) method.invoke(element);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(VisitorScoreMedia.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (NoSuchMethodException | SecurityException ex) {
-            Logger.getLogger(VisitorScoreMedia.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+            scoreAcumulado = (double) method.invoke(element);
+        }
+        else
+            numDeAlunos--; 
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+        
     }   
 }
