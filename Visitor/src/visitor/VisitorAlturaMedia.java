@@ -51,7 +51,7 @@ public class VisitorAlturaMedia implements IVisitor {
         if(s) {
             method = element.getClass().getDeclaredMethod(methodName);
             method.getReturnType();
-            alturaAcumulada = (double) method.invoke(element);
+            alturaAcumulada += (double) method.invoke(element);
         }
         else
             numPessoasVisitadas--; 

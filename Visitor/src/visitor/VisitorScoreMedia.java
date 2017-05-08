@@ -49,7 +49,7 @@ public class VisitorScoreMedia implements IVisitor {
         if(s) {
             method = element.getClass().getDeclaredMethod(methodName);
             method.getReturnType();
-            scoreAcumulado = (double) method.invoke(element);
+            scoreAcumulado += (double) method.invoke(element);
         }
         else
             numDeAlunos--; 
