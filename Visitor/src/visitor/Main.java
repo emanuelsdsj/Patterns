@@ -18,8 +18,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        agregado.add(new Aluno(8.0, 2.0));
-        agregado.add(new Aluno(5.0, 1.70));
+        agregado.add(new Aluno(8, 2.0));
+        agregado.add(new Aluno(5, 1.70));
         agregado.add(new Professor(2, 1.80));
         agregado.add(new Aluno(10, 1.4));
         agregado.add(new Professor(20, 1.5));
