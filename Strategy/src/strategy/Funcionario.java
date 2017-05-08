@@ -18,15 +18,12 @@ public class Funcionario {
         this.salarioBase = salarioBase;
         switch (cargo) {
         case "Desenvolvedor":
-        estrategiaDeCalculo = new CalculoImpostoQuinzeOuDez();
             this.cargo = cargo;
             break;
         case "DBA":
-            estrategiaDeCalculo = new CalculoImpostoQuinzeOuDez();
             this.cargo = cargo;
             break;
         case "Gerente":
-            estrategiaDeCalculo = new CalculoImpostoVinteOuQuinze();
             this.cargo = cargo;
             break;
         default:
