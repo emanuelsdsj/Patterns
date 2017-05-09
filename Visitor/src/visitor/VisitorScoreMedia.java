@@ -18,17 +18,6 @@ public class VisitorScoreMedia implements IVisitor {
     private double scoreAcumulado = 0;
     private int numDeAlunos = 0;
     
-    @Override
-    public void visitAluno(Aluno aluno) {
-        numDeAlunos++;
-        scoreAcumulado = aluno.getScore();
-    }
-
-    @Override
-    public void visitProfessor(Professor professor) {
-        
-    }
-    
     public double getScoreMedia() {
         return scoreAcumulado / numDeAlunos;
     }
@@ -40,18 +29,13 @@ public class VisitorScoreMedia implements IVisitor {
         boolean s = false;
         numDeAlunos++;
         try {
-        try {
             method = element.getClass().getDeclaredMethod(methodName);
             method.getReturnType();
             scoreAcumulado += (double) method.invoke(element);
         } catch (NoSuchMethodException ex) {
             numDeAlunos--;
-        } catch (SecurityException ex) {
+        } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        
+        }      
     }   
 }

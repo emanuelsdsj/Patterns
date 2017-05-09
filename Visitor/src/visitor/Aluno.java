@@ -33,11 +33,6 @@ public class Aluno implements IElement {
     public void setScore(double score) {
         this.score = score;
     }
-
-//    @Override
-//    public void accept(IVisitor visitor) {
-//        visitor.visitAluno(this);
-//    }
     
     @Override
     public void accept(IVisitor visitor) {

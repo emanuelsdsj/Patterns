@@ -19,41 +19,22 @@ public class VisitorAlturaMedia implements IVisitor {
     private double alturaAcumulada = 0;
     private int numPessoasVisitadas = 0;
     
-    @Override
-    public void visitAluno(Aluno aluno) {
-        numPessoasVisitadas++;
-        alturaAcumulada += aluno.getAltura();
-    }
-
-    @Override
-    public void visitProfessor(Professor professor) {
-        numPessoasVisitadas++;
-        alturaAcumulada = professor.getAltura();
-    }
-    
     public double getAlturaMedia() {
         return alturaAcumulada / numPessoasVisitadas;
     }
 
     @Override
     public void visit(IElement element) {
-        String methodName = "getAltura";
         Method method = null;
-        boolean s = false;
         numPessoasVisitadas++;
         try {
-        try {
-            method = element.getClass().getDeclaredMethod(methodName);
+            method = element.getClass().getDeclaredMethod("getAltura");
             method.getReturnType();
             alturaAcumulada += (double) method.invoke(element);
         } catch (NoSuchMethodException ex) {
             numPessoasVisitadas--;
-        } catch (SecurityException ex) {
-            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
         }         
-    }
-    
+    } 
 }

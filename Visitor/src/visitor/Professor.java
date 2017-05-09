@@ -34,10 +34,6 @@ public class Professor implements IElement {
         this.numeroDePublicacao = numeroDePublicacao;
     }
     
-//    @Override
-//    public void accept(IVisitor visitor) {
-//        visitor.visitProfessor(this);
-//    }
     @Override
     public void accept(IVisitor visitor) {
         visitor.visit(this);
