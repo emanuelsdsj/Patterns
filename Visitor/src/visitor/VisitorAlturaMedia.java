@@ -53,10 +53,8 @@ public class VisitorAlturaMedia implements IVisitor {
             method.getReturnType();
             alturaAcumulada += (double) method.invoke(element);
         }
-        else
-            numPessoasVisitadas--; 
         } catch (NoSuchMethodException ex) {
-            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
+            numPessoasVisitadas--;
         } catch (SecurityException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
         }
