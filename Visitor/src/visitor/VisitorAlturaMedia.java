@@ -41,28 +41,17 @@ public class VisitorAlturaMedia implements IVisitor {
         Method method = null;
         boolean s = false;
         numPessoasVisitadas++;
-        Method[] methods = element.getClass().getMethods();
-        for(Method m : methods) {
-            if(m.getName() == methodName)
-                s = true;
-        }
         try {
         try {
-        if(s) {
             method = element.getClass().getDeclaredMethod(methodName);
             method.getReturnType();
             alturaAcumulada += (double) method.invoke(element);
-        }
         } catch (NoSuchMethodException ex) {
             numPessoasVisitadas--;
         } catch (SecurityException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvocationTargetException ex) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
         }         
     }
