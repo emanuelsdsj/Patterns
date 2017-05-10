@@ -24,18 +24,17 @@ public class VisitorScoreMedia implements IVisitor {
 
     @Override
     public void visit(IElement element) {
-        String methodName = "getScore";
         Method method = null;
-        boolean s = false;
-        numDeAlunos++;
         try {
-            method = element.getClass().getDeclaredMethod(methodName);
-            method.getReturnType();
-            scoreAcumulado += (double) method.invoke(element);
-        } catch (NoSuchMethodException ex) {
-            numDeAlunos--;
-        } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            method = element.getClass().getMethod("visit", element.getClass());
+            method.invoke(this, element);
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
         }      
-    }   
+    }  
+    
+    public void visitAluno(Aluno aluno) {
+        scoreAcumulado += aluno.getScore();
+        numDeAlunos++;
+    }
 }
