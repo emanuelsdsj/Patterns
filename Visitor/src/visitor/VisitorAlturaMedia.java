@@ -27,20 +27,22 @@ public class VisitorAlturaMedia implements IVisitor {
     public void visit(IElement element) {
         Method method = null;
         try {
-            method = element.getClass().getMethod("visit", element.getClass());
+            method = getClass().getMethod("visit", element.getClass());
             method.invoke(this, element);
         } catch (NoSuchMethodException ex) {
+            
         } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
         }         
     }
     
-    public void visitProfessor(Professor professor) {
+    
+    public void visit(Professor professor) {
         alturaAcumulada += professor.getAltura();
         numPessoasVisitadas++;
     }
     
-    public void visitAluno(Aluno aluno) {
+    public void visit(Aluno aluno) {
         alturaAcumulada += aluno.getAltura();
         numPessoasVisitadas++;
     }

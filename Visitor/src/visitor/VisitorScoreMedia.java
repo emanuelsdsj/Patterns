@@ -26,14 +26,16 @@ public class VisitorScoreMedia implements IVisitor {
     public void visit(IElement element) {
         Method method = null;
         try {
-            method = element.getClass().getMethod("visit", element.getClass());
+            method = getClass().getMethod("visit", element.getClass());
             method.invoke(this, element);
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (NoSuchMethodException ex) {
+            
+        } catch(SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(VisitorAlturaMedia.class.getName()).log(Level.SEVERE, null, ex);
-        }      
+        }     
     }  
     
-    public void visitAluno(Aluno aluno) {
+    public void visit(Aluno aluno) {
         scoreAcumulado += aluno.getScore();
         numDeAlunos++;
     }
